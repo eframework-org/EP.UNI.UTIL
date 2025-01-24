@@ -4,8 +4,7 @@ on:
   push:
     tags:
       - 'v*'
-    paths:
-          - '.github/workflows/publish.yml'
+    workflow_dispatch:
 
 jobs:
   test:
@@ -29,7 +28,7 @@ jobs:
     
     - name: Run tests
       run: npm test
-      
+
   publish:
     runs-on: ubuntu-latest
     
