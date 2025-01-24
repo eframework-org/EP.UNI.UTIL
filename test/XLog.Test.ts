@@ -1,0 +1,21 @@
+//-------------------------------------------------//
+//                    MIT License                  //
+//    Copyright (c) 2025 EFramework Organization   //
+//          SEE LICENSE.md FOR MORE DETAILS        //
+//-------------------------------------------------//
+
+import { XLog } from "../src/XLog"
+import { XTest } from "../src/XTest"
+
+export const XLogTest = XTest.Test("XLog", async () => {
+    XLog.Panic(new Error("Test Panic"), "Extras message.")
+    XLog.Emergency("Test Emergency")
+    XLog.Alert("Test Alert")
+    XLog.Critical("Test Critical")
+    XLog.Error("Test Error")
+    XLog.Warn("Test Warn")
+    XLog.Notice("Test Notice")
+    XLog.Info("Test Info: hello is {0}, num is {1}", "world", 10099)
+    XLog.Debug("Test Debug")
+    XLog.Debug(XLog.Trace(0, "Test Trace"))
+})

@@ -1,0 +1,67 @@
+{
+  "name": "ep.uni.util",
+  "displayName": "EP.UNI.UTIL",
+  "description": "Package UNI.UTIL provides utility functions such as string, io, time, loom, pool, event, log, etc.",
+  "version": "0.0.1",
+  "author": "eframework-org",
+  "homepage": "https://github.com/eframework-org",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eframework-org/EP.UNI.UTIL.git"
+  },
+  "bugs": {
+    "url": "https://github.com/eframework-org/EP.UNI.UTIL/issues"
+  },
+  "license": "MIT",
+  "keywords": [
+    "eframework",
+    "package",
+    "uni",
+    "puer",
+    "puerts",
+    "unity",
+    "unreal"
+  ],
+  "files": [
+    "dist/",
+    "test/dist/",
+    "types",
+    "package.json",
+    "README.md",
+    "LICENSE.md"
+  ],
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    },
+    "./test": {
+      "require": "./test/dist/index.cjs",
+      "import": "./test/dist/index.mjs",
+      "types": "./test/dist/index.d.ts"
+    }
+  },
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "8.4.0",
+    "@types/jest": "27.5.2",
+    "@types/node": "16.11.7",
+    "jest": "27.2.0",
+    "rollup": "2.79.1",
+    "rollup-plugin-sourcemaps": "0.6.3",
+    "rollup-plugin-typescript2": "0.36.0",
+    "rollup-plugin-terser": "7.0.2",
+    "rollup-plugin-dts": "4.2.3",
+    "ts-jest": "27.0.0",
+    "typescript": "4.1.6"
+  },
+  "scripts": {
+    "test": "jest --coverage --runInBand",
+    "debug": "rm -rf dist && rm -rf test/dist && rollup -c && npm link",
+    "release": "rm -rf dist && rm -rf test/dist && rollup -c --mode=production",
+    "prepublishOnly": "npm install && npm run test && npm run release"
+  }
+}
