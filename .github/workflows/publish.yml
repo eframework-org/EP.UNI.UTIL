@@ -25,6 +25,16 @@ jobs:
     
     - name: Install dependencies
       run: npm install
+
+    - name: Install 7-Zip (Windows only)
+      if: matrix.os == 'windows-latest'
+      uses: ezaio7/7zip-action@v1
+    
+    - name: Install unzip and zip (Windows only)
+      if: matrix.os == 'windows-latest'
+      run: |
+        choco install unzip -y
+        choco install zip -y
     
     - name: Run tests
       run: npm test
