@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
       inputs:
         confirm:
-          description: 'Confirm to proceed with the publish action by typing the repository name (e.g., owner/repo)'
+          description: 'Typing the repository name (e.g., owner/repo) to proceed.'
           required: true
 
 jobs:
@@ -12,7 +12,7 @@ jobs:
     if: github.event_name == 'workflow_dispatch' && github.event.inputs.confirm != github.repository
     runs-on: ubuntu-latest
     steps:
-    - name: Confirm to proceed
+    - name: Fail to validate
       run: |
         echo "The confirm input must match the repository name: ${{ github.repository }} to proceed with the publish action."
         exit 1
