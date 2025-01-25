@@ -2,9 +2,10 @@ name: Publish
 
 on:
   workflow_dispatch:
-  push:
-    tags:
-      - 'v*'
+    inputs:
+      confirm:
+        description: 'Confirm to proceed with the publish action (type "yes" to confirm)'
+        required: true
 
 jobs:
   test:
