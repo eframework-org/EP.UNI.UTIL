@@ -51,6 +51,5 @@ UNI.UTIL 包提供了诸如字符串、IO、时间、Loom、对象池、事件�
   - Typescript不允许循环引用，注意模块间的依赖关系。
 
 ### Publishing | 发布流程
-  - npm login --registry="https://registry.npmjs.org"
-  - npm publish --access public --registry="https://registry.npmjs.org"
-  - npm logout --registry="https://registry.npmjs.org"
+- Trigger [workflow](https://github.com/eframework-org/EP.UNI.UTIL/actions/workflows/publish.yml) to publish.
+- 触发 [工作流](https://github.com/eframework-org/EP.UNI.UTIL/actions/workflows/publish.yml) 以发布。
