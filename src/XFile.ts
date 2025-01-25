@@ -610,7 +610,7 @@ export namespace XFile {
         }
         if (!cmd) {
             cmd = XUtility.FindBin("unzip", ...paths)
-            if (cmd) args = ["-o", zip]
+            if (cmd) args = ["-o", zip, `-d${unzip}`]
         }
         if (!cmd) throw new Error(`No suitable tool found to unzip the file: ${zip}`)
 

@@ -32,7 +32,8 @@ UNI.UTIL 包提供了诸如字符串、IO、时间、Loom、对象池、事件�
   ```
 
 ## Changelog | 版本记录
-### 0.0.1 - 
+### 0.0.1 - 0.0.2
+- [0.0.2]Fix XFile.Unzip error. 修复 XFile.Unzip 功能错误。
 - [0.0.1]Initial commit. 首次提交。
 
 ## Refer | 参考

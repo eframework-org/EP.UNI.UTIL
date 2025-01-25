@@ -2,7 +2,7 @@
   "name": "ep.uni.util",
   "displayName": "EP.UNI.UTIL",
   "description": "Package UNI.UTIL provides utility functions such as string, io, time, loom, pool, event, log, etc.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "eframework-org",
   "homepage": "https://github.com/eframework-org",
   "repository": {
