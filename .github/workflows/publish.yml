@@ -2,13 +2,23 @@ name: Publish
 
 on:
   workflow_dispatch:
-    inputs:
-      confirm:
-        description: 'Confirm to proceed with the publish action (type "yes" to confirm)'
-        required: true
+      inputs:
+        confirm:
+          description: 'Confirm to proceed with the publish action by typing the repository name (e.g., owner/repo)'
+          required: true
 
 jobs:
+  validate:
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.confirm != github.repository
+    runs-on: ubuntu-latest
+    steps:
+    - name: Confirm to proceed
+      run: |
+        echo "The confirm input must match the repository name: ${{ github.repository }} to proceed with the publish action."
+        exit 1
+
   test:
+    needs: validate
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
