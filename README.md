@@ -41,7 +41,7 @@ UNI.UTIL 包提供了诸如字符串、IO、时间、Loom、对象池、事件�
 
 ## Developer | 开发者
 ### Developing | 开发流程
-- 当前工程: npm link
+- 当前工程: npm link（链接至全局）
 - 目标工程: 
   - npm link ep.uni.util（链接本地包）
   - packege.json -> dependencies: "ep.uni.util": "$version",（添加包引用）
@@ -49,6 +49,7 @@ UNI.UTIL 包提供了诸如字符串、IO、时间、Loom、对象池、事件�
   - Cocos Creator: Developer/Cache/Clear Code Cache（重构以生效）
 - 注意事项:
   - Typescript不允许循环引用，注意模块间的依赖关系。
+  - Jest在OSX上解析ts模块导入有问题，故使用tsconfig.jest.json覆盖module选项为CommonJS。
 
 ### Publishing | 发布流程
 - Trigger [workflow](https://github.com/eframework-org/EP.UNI.UTIL/actions/workflows/publish.yml) to publish.
