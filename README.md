@@ -17,7 +17,7 @@ UNI.UTIL 包提供了诸如字符串、IO、时间、Loom、对象池、事件�
 - ❓: Developing/Testing ❌: Planing
 
 ## Manual | 使用手册
-- Install/安装: npm i ep.uni.util
+- Install/安装: npm install ep.uni.util
 
 ## FAQ | 常见问题
 - XFile.Unzip need 7z or WinRAR. 解压功能需要安装 7z 或 WinRAR。
