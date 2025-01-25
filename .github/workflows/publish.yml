@@ -34,9 +34,6 @@ jobs:
         node-version: '20'
         registry-url: 'https://registry.npmjs.org'
     
-    - name: Install dependencies
-      run: npm install
-
     - name: Install 7-Zip and unzip/zip
       if: matrix.os == 'windows-latest'
       run: |
@@ -44,6 +41,9 @@ jobs:
         choco install unzip -y
         choco install zip -yy
     
+    - name: Install dependencies
+      run: npm install
+
     - name: Run tests
       run: npm test
 
