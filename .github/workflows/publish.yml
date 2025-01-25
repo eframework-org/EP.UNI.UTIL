@@ -12,7 +12,12 @@ jobs:
     if: github.event_name == 'workflow_dispatch' && github.event.inputs.confirm != github.repository
     runs-on: ubuntu-latest
     steps:
+    - name: Debug repository name
+      run: |
+        echo "GitHub Repository: ${{ github.repository }}"
+        echo "Confirm Input: ${{ github.event.inputs.confirm }}"
     - name: Fail to validate
+      if: github.event.inputs.confirm != github.repository
       run: |
         echo "The confirm input must match the repository name: ${{ github.repository }} to proceed with the publish action."
         exit 1
