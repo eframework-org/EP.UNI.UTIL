@@ -9,7 +9,7 @@ on:
 
 jobs:
   validate:
-    if: github.event_name == 'workflow_dispatch' && github.event.inputs.confirm != github.repository
+    # if: github.event_name == 'workflow_dispatch' && github.event.inputs.confirm != github.repository
     runs-on: ubuntu-latest
     steps:
     - name: Debug repository name
