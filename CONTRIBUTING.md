@@ -207,27 +207,55 @@ Closes #123
 
 ## 开发流程
 
-### 1. 克隆仓库
-```bash
-git clone https://github.com/eframework-org/EP.UNI.UTIL.git
-cd EP.UNI.UTIL
-```
+### 1. 环境准备
+- 克隆仓库
+  ```bash
+  git clone https://github.com/eframework-org/EP.UNI.UTIL.git
+  cd EP.UNI.UTIL
+  ```
 
-### 2. 安装依赖
-```bash
-npm install
-```
+- 安装依赖
+  ```bash
+  npm install
+  ```
 
-### 3. 开发调试
-- 在 VSCode 中打开项目
-- 运行 `npm run debug` 进行构建
-- 使用 Jest 调试配置运行测试
+### 2. 本地开发
+- 链接至全局
+  ```bash
+  npm link
+  ```
 
-### 4. 本地测试
-```bash
-npm run release
-npm link
-```
+- 运行测试
+  ```bash
+  npm test
+  ```
+
+### 3. 项目集成
+- 目标工程中链接本地包
+  ```bash
+  npm link ep.uni.util
+  ```
+
+- 添加包引用至 package.json
+  ```json
+  {
+    "dependencies": {
+      "ep.uni.util": "$version"
+    }
+  }
+  ```
+
+- 导入并执行测试
+  ```typescript
+  import { TestAll } from "ep.uni.util/test"
+  ```
+
+- Cocos Creator 环境
+  - 修改代码后需要清理缓存: Developer/Cache/Clear Code Cache
+
+### 4. 注意事项
+- TypeScript 不允许循环引用，注意模块间的依赖关系
+- Jest 在 OSX 上解析 ts 模块导入有问题，使用 tsconfig.jest.json 覆盖 module 选项为 CommonJS
 
 ## 发布流程
 
@@ -264,7 +292,13 @@ npm link
 - 构建发布包：`npm run release`
 - 发布到商店：Run workflow [Publish](https://github.com/eframework-org/EP.UNI.UTIL/actions/workflows/publish.yml)
 
+## 相关链接
+
+- [Cocos Creator原生文件接口](https://docs.cocos.com/creator/api/zh/namespace/native.fileUtils)
+- [浏览器文件接口](https://github.com/zen-fs/core)
+
 ## 问题反馈
+
 
 ### 1. 提交问题前：
 - 搜索现有 [issues](https://github.com/eframework-org/EP.UNI.UTIL/issues) 避免重复
