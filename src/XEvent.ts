@@ -21,10 +21,10 @@ export namespace XEvent {
      * 负责事件的注册、注销、触发等生命周期管理。
      */
     export class Manager {
-        protected mMultiple: boolean
-        protected mCallbacks: Map<number, Callback[]>
-        protected mOnces: Map<Callback, boolean>
-        protected mBatches: Callback[]
+        protected multiple: boolean
+        protected callbacks: Map<number, Callback[]>
+        protected onces: Map<Callback, boolean>
+        protected batches: Callback[]
 
         /**
          * 构造函数。
@@ -32,19 +32,19 @@ export namespace XEvent {
          * @param multiple 是否允许同一事件注册多个回调，默认为 true。
          */
         constructor(multiple: boolean = true) {
-            this.mMultiple = multiple
-            this.mCallbacks = new Map<number, Callback[]>()
-            this.mOnces = new Map<Callback, boolean>()
-            this.mBatches = []
+            this.multiple = multiple
+            this.callbacks = new Map<number, Callback[]>()
+            this.onces = new Map<Callback, boolean>()
+            this.batches = []
         }
 
         /**
          * 清除所有事件注册。
          */
         public Clear() {
-            this.mCallbacks.clear()
-            this.mOnces.clear()
-            this.mBatches.length = 0
+            this.callbacks.clear()
+            this.onces.clear()
+            this.batches.length = 0
         }
 
         /**
@@ -61,7 +61,7 @@ export namespace XEvent {
          * ```
          */
         public Get(eid: number): Callback[] | null {
-            return this.mCallbacks.get(eid) || null
+            return this.callbacks.get(eid) || null
         }
 
         /**
@@ -84,13 +84,13 @@ export namespace XEvent {
                 return false
             }
 
-            let callbacks = this.mCallbacks.get(eid)
+            let callbacks = this.callbacks.get(eid)
             if (!callbacks) {
                 callbacks = []
-                this.mCallbacks.set(eid, callbacks)
+                this.callbacks.set(eid, callbacks)
             }
 
-            if (!this.mMultiple && callbacks.length > 1) {
+            if (!this.multiple && callbacks.length > 1) {
                 XLog.Error("XEvent.Manager.Reg: not support multi-register, eid={0}", eid)
                 return false
             }
@@ -99,7 +99,7 @@ export namespace XEvent {
                 if (temp === callback) return false
             }
 
-            if (once) this.mOnces.set(callback, once)
+            if (once) this.onces.set(callback, once)
             callbacks.push(callback)
             return true
         }
@@ -121,26 +121,26 @@ export namespace XEvent {
         public Unreg(eid: number, callback?: Callback): boolean {
             let ret = false
 
-            if (this.mCallbacks.has(eid)) {
-                const callbacks = this.mCallbacks.get(eid)
+            if (this.callbacks.has(eid)) {
+                const callbacks = this.callbacks.get(eid)
                 if (callback) {
                     if (callbacks.length > 0) {
                         ret = callbacks.some((cb, index) => {
                             if (cb === callback) {
                                 callbacks.splice(index, 1)
-                                if (this.mOnces.has(callback)) this.mOnces.delete(callback)
+                                if (this.onces.has(callback)) this.onces.delete(callback)
                                 return true
                             }
                             return false
                         })
-                        if (callbacks.length == 0) this.mCallbacks.delete(eid)
+                        if (callbacks.length == 0) this.callbacks.delete(eid)
                     }
                 } else {
                     ret = true
                     for (const cb of callbacks) {
-                        if (this.mOnces.has(cb)) this.mOnces.delete(cb)
+                        if (this.onces.has(cb)) this.onces.delete(cb)
                     }
-                    this.mCallbacks.delete(eid)
+                    this.callbacks.delete(eid)
                 }
             }
 
@@ -158,26 +158,26 @@ export namespace XEvent {
          * ```
          */
         public Notify(eid: number, ...args: any[]): void {
-            if (this.mCallbacks.has(eid)) {
-                const callbacks = this.mCallbacks.get(eid)
-                this.mBatches.length = 0
+            if (this.callbacks.has(eid)) {
+                const callbacks = this.callbacks.get(eid)
+                this.batches.length = 0
                 for (let i = 0; i < callbacks.length;) {
                     const callback = callbacks[i]
                     if (!callback) {
                         callbacks.splice(i, 1)
                     } else {
-                        if (this.mOnces.has(callback)) {
+                        if (this.onces.has(callback)) {
                             callbacks.splice(i, 1)
                         } else {
                             i++
                         }
-                        this.mBatches.push(callback)
+                        this.batches.push(callback)
                     }
                 }
-                for (const callback of this.mBatches) {
+                for (const callback of this.batches) {
                     callback(...args)
                 }
-                this.mBatches.length = 0
+                this.batches.length = 0
             }
         }
     }

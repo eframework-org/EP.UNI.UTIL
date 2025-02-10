@@ -13,10 +13,10 @@ import { XTime } from "./XTime"
  * 包含断言、测试用例管理、测试结果报告等功能。
  */
 export namespace XTest {
-    var mIsJest: boolean
+    var isJest: boolean
     function getIsJest(): boolean {
-        if (mIsJest == null) mIsJest = typeof jest != "undefined"
-        return mIsJest
+        if (isJest == null) isJest = typeof jest != "undefined"
+        return isJest
     }
 
     /**

@@ -11,7 +11,7 @@ export namespace XObject {
      * 钩子映射。
      * 用于存储对象方法的原始引用。
      */
-    const mHooks: any = {}
+    const hooks: any = {}
 
     const XObjectThis = "__xobject_this"
 
@@ -270,10 +270,10 @@ export namespace XObject {
         let ret = null
         let err = null
         if (obj != null && to != null && from) {
-            let hook = mHooks[obj]
+            let hook = hooks[obj]
             if (hook == null) {
                 hook = {}
-                mHooks[obj] = hook
+                hooks[obj] = hook
             }
             if (!hook[from]) {
                 ret = XObject.Value(obj, from)
@@ -309,7 +309,7 @@ export namespace XObject {
         let ret = null
         let err = null
         if (obj != null && from) {
-            let hook = mHooks[obj]
+            let hook = hooks[obj]
             if (hook) {
                 ret = hook[from]
                 if (ret != null && typeof (ret) == "function") {
@@ -322,7 +322,7 @@ export namespace XObject {
                 let sig = true
                 for (let _ in hook) { sig = false; break }
                 if (sig) {
-                    delete mHooks[obj] // release references
+                    delete hooks[obj] // release references
                 }
             } else {
                 err = "unhook failed caused by nil hook map."

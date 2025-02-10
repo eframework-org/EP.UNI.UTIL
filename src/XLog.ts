@@ -47,7 +47,7 @@ export namespace XLog {
         return (text: string) => pre + color + "m" + text + reset
     }
 
-    const mAnsiBrushes: Array<(text: string) => string> = [
+    const ansiBrushes: Array<(text: string) => string> = [
         anisBrush("1;39"), // Emergency          black
         anisBrush("1;36"), // Alert              cyan
         anisBrush("1;35"), // Critical           magenta
@@ -62,7 +62,7 @@ export namespace XLog {
         return (text: string) => `<color=${color}><b>${text}</b></color>`
     }
 
-    const mUnityBrushes: Array<(text: string) => string> = [
+    const unityBrushes: Array<(text: string) => string> = [
         unityBrush("black"), // Emergency
         unityBrush("cyan"), // Alert
         unityBrush("magenta"), // Critical
@@ -77,7 +77,7 @@ export namespace XLog {
         return (text: string) => `<p style="color: ${color};><b>${text}</b></p>`
     }
 
-    const mHtmlBrushes: Array<(text: string) => string> = [
+    const htmlBrushes: Array<(text: string) => string> = [
         htmlBrush("black"), // Emergency
         htmlBrush("cyan"), // Alert
         htmlBrush("magenta"), // Critical
@@ -88,7 +88,7 @@ export namespace XLog {
         htmlBrush("blue"), // Debug
     ]
 
-    const mTags: Array<string> = [
+    const tags: Array<string> = [
         "[M]",
         "[A]",
         "[C]",
@@ -244,12 +244,12 @@ export namespace XLog {
                     // VSCode Debug Console 和 Cocos Preview Editor不支持 ANSI 转义
                     // 浏览器支持 ANSI 转义
                     // 但是为了统一化，对level不作着色处理
-                    const lstr = `[${tm}] ${mTags[level]} ${fstr}`
+                    const lstr = `[${tm}] ${tags[level]} ${fstr}`
                     if (level <= LogLevel.Error) console.error(lstr)
                     else console.info(lstr)
                 } else if (XEnv.IsCode) {
                     // VSCode Output Channel 不支持 ANSI 转义
-                    const lstr = `[${tm}] ${mTags[level]} ${fstr}`
+                    const lstr = `[${tm}] ${tags[level]} ${fstr}`
                     if (mChannel == null) {
                         const vscode = require("vscode")
                         mChannel = vscode.window.createOutputChannel(XEnv.Product, { log: true })
@@ -257,11 +257,11 @@ export namespace XLog {
                     if (level <= LogLevel.Error) mChannel.error(lstr)
                     else mChannel.info(lstr)
                 } else if (XEnv.IsNode) {
-                    const lstr = `[${tm}] ${mAnsiBrushes[level](mTags[level])} ${fstr}`
+                    const lstr = `[${tm}] ${ansiBrushes[level](tags[level])} ${fstr}`
                     if (level <= LogLevel.Error) console.error(lstr)
                     else console.info(lstr)
                 } else if (XEnv.IsUnity) {
-                    let lstr = `[${tm}] ${mUnityBrushes[level](mTags[level])} ${fstr}`
+                    let lstr = `[${tm}] ${unityBrushes[level](tags[level])} ${fstr}`
                     if (mIsUnityEditor) {
                         const trace: string[] = new globalThis.Error().stack?.replace(/\r\n/g, "\n").split("\n").slice(2)
                         if (trace && trace.length > 0) {
