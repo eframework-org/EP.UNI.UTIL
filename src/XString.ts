@@ -7,40 +7,30 @@
 import { XEnv } from "./XEnv"
 
 /**
- * String utility class.
- *
  * 字符串工具类。
  */
 export namespace XString {
     /**
-     * Empty string.
-     *
      * 空字符串。
      */
     export const Empty: string = ""
 
     /**
-     * Checks if a string is null or empty.
-     *
      * 检查字符串是否为空。
-     *
-     * @param str string instance. 字符串实例。
-     *
-     * @returns whether the string is null or empty. 字符串是否为空。
+     * 
+     * @param str 字符串实例。
+     * @returns 字符串是否为空。
      */
     export function IsNullOrEmpty(str: string): boolean {
         return !str || str === ""
     }
 
     /**
-     * Gets the index of a substring.
-     *
      * 字符串索引。
-     *
-     * @param str string instance. 字符串实例。
-     * @param _of feature string. 特征字符串。
-     *
-     * @returns index of the substring. 子字符串的索引。
+     * 
+     * @param str 字符串实例。
+     * @param _of 特征字符串。
+     * @returns 子字符串的索引。
      */
     export function IndexOf(str: string, _of: string): number {
         if (IsNullOrEmpty(str) == false && IsNullOrEmpty(_of) == false) {
@@ -50,14 +40,11 @@ export namespace XString {
     }
 
     /**
-     * Gets the last index of a substring.
-     *
      * 上一字符串索引。
-     *
-     * @param str string instance. 字符串实例。
-     * @param _of feature string. 特征字符串。
-     *
-     * @returns last index of the substring. 子字符串的最后一个索引。
+     * 
+     * @param str 字符串实例。
+     * @param _of 特征字符串。
+     * @returns 子字符串的最后一个索引。
      */
     export function LastIndexOf(str: string, _of: string): number {
         if (IsNullOrEmpty(str) == false && IsNullOrEmpty(_of) == false) {
@@ -67,15 +54,12 @@ export namespace XString {
     }
 
     /**
-     * Gets a substring.
-     *
      * 子字符串。
-     *
-     * @param str string instance. 字符串实例。
-     * @param from start position (inclusive). 开始位置（闭）。
-     * @param to end index (exclusive). 终止索引（开）。
-     *
-     * @returns substring. 子字符串。
+     * 
+     * @param str 字符串实例。
+     * @param from 开始位置（闭）。
+     * @param to 终止索引（开）。
+     * @returns 子字符串。
      */
     export function Sub(str: string, from: number, to: number): string {
         if (IsNullOrEmpty(str) == false) {
@@ -85,15 +69,12 @@ export namespace XString {
     }
 
     /**
-     * Replaces a substring.
-     *
      * 字符串替换。
-     *
-     * @param str string instance. 字符串实例。
-     * @param from source string. 源字符串。
-     * @param to target string. 目标字符串。
-     *
-     * @returns replaced string. 替换后的字符串。
+     * 
+     * @param str 字符串实例。
+     * @param from 源字符串。
+     * @param to 目标字符串。
+     * @returns 替换后的字符串。
      */
     export function Replace(str: string, from: string, to: string): string {
         if (IsNullOrEmpty(str) == false && IsNullOrEmpty(from) == false) {
@@ -103,13 +84,10 @@ export namespace XString {
     }
 
     /**
-     * Trims a string.
-     *
      * 字符串裁剪。
-     *
-     * @param str string instance. 字符串实例。
-     *
-     * @returns trimmed string. 裁剪后的字符串。
+     * 
+     * @param str 字符串实例。
+     * @returns 裁剪后的字符串。
      */
     export function Trim(str: string): string {
         if (IsNullOrEmpty(str) == false) {
@@ -119,14 +97,11 @@ export namespace XString {
     }
 
     /**
-     * Splits a string.
-     *
      * 字符串分割。
-     *
-     * @param str string instance. 字符串实例。
-     * @param _of feature string. 特征字符串。
-     *
-     * @returns array of substrings. 子字符串数组。
+     * 
+     * @param str 字符串实例。
+     * @param _of 特征字符串。
+     * @returns 子字符串数组。
      */
     export function Split(str: string, _of: string): string[] {
         if (IsNullOrEmpty(str) == false && IsNullOrEmpty(_of) == false) {
@@ -136,62 +111,49 @@ export namespace XString {
     }
 
     /**
-     * Checks if a string contains a substring.
-     *
      * 字符串是否包含。
-     *
-     * @param str string instance. 字符串实例。
-     * @param _of feature string. 特征字符串。
-     *
-     * @returns whether the string contains the substring. 字符串是否包含子字符串。
+     * 
+     * @param str 字符串实例。
+     * @param _of 特征字符串。
+     * @returns 字符串是否包含子字符串。
      */
     export function Contains(str: string, _of: string): boolean {
         return IndexOf(str, _of) >= 0
     }
 
     /**
-     * Checks if a string starts with a substring.
-     *
      * 字符串头部匹配。
-     *
-     * @param str string instance. 字符串实例。
-     * @param _of feature string. 特征字符串。
-     *
-     * @returns whether the string starts with the substring. 字符串是否以子字符串开头。
+     * 
+     * @param str 字符串实例。
+     * @param _of 特征字符串。
+     * @returns 字符串是否以子字符串开头。
      */
     export function StartsWith(str: string, _of: string): boolean {
         return IndexOf(str, _of) == 0
     }
 
     /**
-     * Checks if a string ends with a substring.
-     *
      * 字符串尾部匹配。
-     *
-     * @param str string instance. 字符串实例。
-     * @param _of feature string. 特征字符串。
-     *
-     * @returns whether the string ends with the substring. 字符串是否以子字符串结尾。
+     * 
+     * @param str 字符串实例。
+     * @param _of 特征字符串。
+     * @returns 字符串是否以子字符串结尾。
      */
     export function EndsWith(str: string, _of: string): boolean {
         if (IsNullOrEmpty(str) == false && IsNullOrEmpty(_of) == false) {
-            let idx = str.lastIndexOf(_of)
-            return idx == str.length - _of.length
+            return str.endsWith(_of)
         }
         return false
     }
 
     /**
-     * Formats a string.
-     *
      * 字符串格式化。
-     *
-     * @param fmt string format. 字符串格式。
-     * @param args format parameters. 格式化参数。
-     *
-     * @returns formatted string. 格式化后的字符串。
+     * 
+     * @param fmt 格式字符串。
+     * @param args 格式化参数。
+     * @returns 格式化后的字符串。
      */
-    export function Format(fmt: string, ...args: any[]): string {
+    export function Format(fmt: string, ...args: Array<any>): string {
         if (fmt) {
             if (args.length > 0) {
                 let index = 0
@@ -228,13 +190,10 @@ export namespace XString {
     }
 
     /**
-     * Converts a string to a Buffer.
-     *
      * 字符串转Buffer。
-     *
-     * @param str string instance. 字符串实例。
-     *
-     * @returns Buffer. Buffer。
+     * 
+     * @param str 字符串实例。
+     * @returns Buffer。
      */
     export function ToBuffer(str: string): ArrayBuffer {
         const encoder = new TextEncoder()
@@ -242,13 +201,10 @@ export namespace XString {
     }
 
     /**
-     * Converts a Buffer to a string.
-     *
      * Buffer转字符串。
-     *
-     * @param buf Buffer. Buffer。
-     *
-     * @returns string. 字符串。
+     * 
+     * @param buf Buffer。
+     * @returns 字符串。
      */
     export function FromBuffer(buf: ArrayBuffer): string {
         const decoder = new TextDecoder()
@@ -257,13 +213,10 @@ export namespace XString {
     }
 
     /**
-     * Encodes a string to Base64.
-     *
      * 对字符串进行base64编码。
-     *
-     * @param str string instance. 字符串实例。
-     *
-     * @returns Base64 encoded string. Base64编码后的字符串。
+     * 
+     * @param str 字符串实例。
+     * @returns Base64编码后的字符串。
      */
     export function ToBase64(str: string): string {
         if (XEnv.IsBrowser || XEnv.IsCocos) {
@@ -281,13 +234,10 @@ export namespace XString {
     }
 
     /**
-     * Decodes a Base64 string.
-     *
      * 对字符串进行base64解码。
-     *
-     * @param str Base64 encoded string. Base64编码后的字符串。
-     *
-     * @returns decoded string. 解码后的字符串。
+     * 
+     * @param str Base64编码后的字符串。
+     * @returns 解码后的字符串。
      */
     export function FromBase64(str: string): string {
         if (XEnv.IsBrowser || XEnv.IsCocos) {
@@ -304,13 +254,10 @@ export namespace XString {
     }
 
     /**
-     * Converts a version string to a number.
-     *
      * 版本号转数字。
-     *
-     * @param version version string. 版本号。
-     *
-     * @returns version number. 版本号数字。
+     * 
+     * @param version 版本号。
+     * @returns 版本号数字。
      */
     export function ToVersion(version: string): number {
         if (IsNullOrEmpty(version)) {
@@ -337,13 +284,10 @@ export namespace XString {
     }
 
     /**
-     * Converts a version number to a string.
-     *
      * 数字转版本号。
-     *
-     * @param version version number. 版本号数字。
-     *
-     * @returns version string. 版本号字符串。
+     * 
+     * @param version 版本号数字。
+     * @returns 版本号字符串。
      */
     export function FromVersion(version: number): string {
         let finalVersion = ""

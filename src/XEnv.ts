@@ -7,15 +7,11 @@
 import { XObject } from "./XObject"
 
 /**
- * Namespace for environment variables.
- *
  * 环境变量命名空间。
  */
 export namespace XEnv {
     /**
-     * Enum for runtime types.
-     *
-     * 运行时类型枚举。
+     * 运行时类型。
      */
     export enum RuntimeType {
         Node,
@@ -28,9 +24,7 @@ export namespace XEnv {
     }
 
     /**
-     * Enum for platform types.
-     *
-     * 平台类型枚举。
+     * 平台类型。
      */
     export enum PlatformType {
         Unknown,
@@ -101,85 +95,62 @@ export namespace XEnv {
     }
 
     /**
-     * Current platform type.
-     *
      * 当前平台类型。
      */
     export const Platform = getPlatform()
 
     /**
-     * Current runtime type.
-     *
      * 当前运行时类型。
      */
     export const Runtime = getRuntime()
 
     /**
-     * Indicates if the runtime is Node or Code.
-     *
-     * 表示运行时是否为Node或Code。
+     * 是否为 Node 或 Code 运行时。
      */
     export const IsNode = getRuntime() == RuntimeType.Node || getRuntime() == RuntimeType.Code
 
     /**
-     * Indicates if the runtime is Code.
-     *
-     * 表示运行时是否为Code。
+     * 是否为 VSCode 扩展运行时。
      */
     export const IsCode = getRuntime() == RuntimeType.Code
 
     /**
-     * Indicates if the runtime is Cocos.
-     *
-     * 表示运行时是否为Cocos。
+     * 是否为 Cocos Creator 运行时。
      */
     export const IsCocos = getRuntime() == RuntimeType.Cocos
 
     /**
-     * Indicates if the runtime is Unity.
-     *
-     * 表示运行时是否为Unity。
+     * 是否为 Unity 运行时。
      */
     export const IsUnity = getRuntime() == RuntimeType.Unity
 
     /**
-     * Indicates if the runtime is Unreal.
-     *
-     * 表示运行时是否为Unreal。
+     * 是否为 Unreal 运行时。
      */
     export const IsUnreal = getRuntime() == RuntimeType.Unreal
 
     /**
-     * Indicates if the platform is native.
-     *
-     * 表示平台是否为原生平台。
+     * 是否为原生平台。
      */
     export const IsNative = getPlatform() != PlatformType.Browser
 
     /**
-     * Indicates if the platform is a browser.
-     *
-     * 表示平台是否为浏览器。
+     * 是否为浏览器平台。
      */
     export const IsBrowser = getPlatform() == PlatformType.Browser
 
     /**
-     * Error for unsupported runtime and platform.
-     *
-     * 不支持的运行时和平台的错误。
+     * 不支持的运行时和平台错误。
      */
     export const Unsupport = new Error(`Unsupported runtime: ${XObject.Key(XEnv.RuntimeType, XEnv.Runtime)} on platform: ${XObject.Key(XEnv.PlatformType, XEnv.Platform)}`)
 
     const separator = "/"
 
     /**
-     * Normalizes a given path.
-     *
      * 规范化给定的路径。
-     *
-     * @param path the path to normalize. 需要规范化的路径。
-     *
-     * @returns the normalized path. 规范化后的路径。
+     * 
+     * @param path 需要规范化的路径。
+     * @returns 规范化后的路径。
      */
     function normalizePath(path: string): string {
         if (typeof path !== "string") throw new TypeError("path must be a string")
@@ -208,13 +179,10 @@ export namespace XEnv {
     }
 
     /**
-     * Returns the directory name of a given path.
-     *
      * 返回给定路径的目录名称。
-     *
-     * @param path the path to get the directory name from. 需要获取目录名称的路径。
-     *
-     * @returns the directory name. 目录名称。
+     * 
+     * @param path 需要获取目录名称的路径。
+     * @returns 目录名称。
      */
     function directoryName(path: string): string {
         if (path) {
@@ -228,13 +196,10 @@ export namespace XEnv {
     }
 
     /**
-     * Joins multiple paths into one.
-     *
      * 将多个路径连接成一个。
-     *
-     * @param paths the paths to join. 需要连接的路径。
-     *
-     * @returns the joined path. 连接后的路径。
+     * 
+     * @param paths 需要连接的路径。
+     * @returns 连接后的路径。
      */
     function pathJoin(...paths: string[]) {
         paths = paths.filter(path => typeof path === "string" && path.trim() !== "")
@@ -250,13 +215,10 @@ export namespace XEnv {
     }
 
     /**
-     * Checks if a file exists.
-     *
      * 检查文件是否存在。
-     *
-     * @param file the file path to check. 需要检查的文件路径。
-     *
-     * @returns true if the file exists, false otherwise. 如果文件存在则返回true，否则返回false。
+     * 
+     * @param file 需要检查的文件路径。
+     * @returns 如果文件存在则返回true，否则返回false。
      */
     function hasFile(file: string): boolean {
         if (file) {
@@ -269,13 +231,10 @@ export namespace XEnv {
     }
 
     /**
-     * Checks if a directory exists.
-     *
      * 检查目录是否存在。
-     *
-     * @param dir the directory path to check. 需要检查的目录路径。
-     *
-     * @returns true if the directory exists, false otherwise. 如果目录存在则返回true，否则返回false。
+     * 
+     * @param dir 需要检查的目录路径。
+     * @returns 如果目录存在则返回true，否则返回false。
      */
     function hasDirectory(dir: string): boolean {
         if (dir) {
@@ -305,11 +264,9 @@ export namespace XEnv {
     }
 
     /**
-     * Creates a directory.
-     *
      * 创建目录。
-     *
-     * @param dir the directory path to create. 需要创建的目录路径。
+     * 
+     * @param dir 需要创建的目录路径。
      */
     function createDirectory(dir: string) {
         if (!dir || hasDirectory(dir)) return
@@ -359,11 +316,9 @@ export namespace XEnv {
 
     var mDataPath: string
     /**
-     * Gets the data path.
-     *
      * 获取数据路径。
-     *
-     * @returns the data path. 数据路径。
+     * 
+     * @returns 数据路径。
      */
     function getDataPath(): string {
         if (mDataPath == null) {
@@ -445,18 +400,14 @@ export namespace XEnv {
     }
 
     /**
-     * Data path.
-     *
      * 数据路径。
      */
     export const DataPath = getDataPath()
 
     /**
-     * Gets the package information.
-     *
      * 获取包信息。
-     *
-     * @returns the package information. 包信息。
+     * 
+     * @returns 包信息。
      */
     function getPackage(): any {
         if (XEnv.IsNode) {
@@ -473,11 +424,9 @@ export namespace XEnv {
 
     var mProduct: string
     /**
-     * Gets the product name.
-     *
      * 获取产品名称。
-     *
-     * @returns the product name. 产品名称。
+     * 
+     * @returns 产品名称。
      */
     function getProduct(): string {
         if (mProduct == null) {
@@ -495,19 +444,15 @@ export namespace XEnv {
         return mProduct
     }
     /**
-     * Product name.
-     *
      * 产品名称。
      */
     export const Product = getProduct()
 
     var mAuthor: string
     /**
-     * Gets the author name.
-     *
      * 获取作者名称。
-     *
-     * @returns the author name. 作者名称。
+     * 
+     * @returns 作者名称。
      */
     function getAuthor(): string {
         if (mAuthor == null) {
@@ -527,19 +472,15 @@ export namespace XEnv {
         return mAuthor
     }
     /**
-     * Author name.
-     *
      * 作者名称。
      */
     export const Author = getAuthor()
 
     var mIdentifier: string
     /**
-     * Gets the identifier.
-     *
      * 获取标识符。
-     *
-     * @returns the identifier. 标识符。
+     * 
+     * @returns 标识符。
      */
     export function getIdentifier(): string {
         if (mIdentifier == null) {
@@ -554,19 +495,15 @@ export namespace XEnv {
         return mIdentifier
     }
     /**
-     * Identifier.
-     *
      * 标识符。
      */
     export const Identifier = getIdentifier()
 
     var mVersion: string
     /**
-     * Gets the version.
-     *
      * 获取版本。
-     *
-     * @returns the version. 版本。
+     * 
+     * @returns 版本。
      */
     function getVersion(): string {
         if (mVersion == null) {
@@ -582,19 +519,15 @@ export namespace XEnv {
     }
 
     /**
-     * Version.
-     *
      * 版本。
      */
     export const Version = getVersion()
 
     var mDescription: string
     /**
-     * Gets the description.
-     *
      * 获取描述。
-     *
-     * @returns the description. 描述。
+     * 
+     * @returns 描述。
      */
     function getDescription(): string {
         if (mDescription == null) {
@@ -609,8 +542,6 @@ export namespace XEnv {
     }
 
     /**
-     * Description.
-     *
      * 描述。
      */
     export const Description = getDescription()

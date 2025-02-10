@@ -9,8 +9,6 @@ import { XString } from "./XString"
 import { XUtility } from "./XUtility"
 
 /**
- * File utility class.
- *
  * 文件工具类。
  */
 export namespace XFile {

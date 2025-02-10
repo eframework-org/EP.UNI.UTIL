@@ -5,20 +5,15 @@
 //-------------------------------------------------//
 
 /**
- * Time utility class.
- *
  * 时间工具类。
  */
 export namespace XTime {
     /**
-     * Formats a date.
-     *
      * 时间格式化。
-     *
-     * @param date date instance. 日期实例。
-     * @param fmt format (yyyy-MM-dd hh:mm:ss.SSS). 格式化（yyyy-MM-dd hh:mm:ss.SSS）。
-     *
-     * @returns formatted date string. 格式化后的日期字符串。
+     * 
+     * @param date 日期实例。
+     * @param fmt 格式化（yyyy-MM-dd hh:mm:ss.SSS）。
+     * @returns 格式化后的日期字符串。
      */
     export function Format(date: Date, fmt: string): string {
         if (!date || !fmt) return ""
@@ -49,22 +44,18 @@ export namespace XTime {
     }
 
     /**
-     * Gets the timestamp in seconds.
-     *
      * 获取时间戳（秒）。
-     *
-     * @returns timestamp in seconds. 时间戳（秒）。
+     * 
+     * @returns 时间戳（秒）。
      */
     export function GetTimestamp(): number {
         return Date.parse(new Date().toString()) / 1000
     }
 
     /**
-     * Gets the timestamp in milliseconds.
-     *
      * 获取时间戳（毫秒）。
-     *
-     * @returns timestamp in milliseconds. 时间戳（毫秒）。
+     * 
+     * @returns 时间戳（毫秒）。
      */
     export function GetMilliSecond(): number {
         return new Date().valueOf()

@@ -5,14 +5,10 @@
 //-------------------------------------------------//
 
 /**
- * Object utility class.
- *
  * 对象工具类。
  */
 export namespace XObject {
     /**
-     * Hook mapping.
-     *
      * 钩子映射。
      */
     const mHooks: any = {}
@@ -20,11 +16,9 @@ export namespace XObject {
     const XObjectThis = "__xobject_this"
 
     /**
-     * Function this instance binder.
-     *
      * 函数this实例绑定器。
-     *
-     * @returns decorator function. 装饰器函数。
+     * 
+     * @returns 装饰器函数。
      */
     export function This(): (target: any, propertyKey: string) => void {
         return function (target, propertyKey) {
@@ -34,8 +28,6 @@ export namespace XObject {
     }
 
     /**
-     * Base class.
-     *
      * 基础类型。
      */
     export class Base {
@@ -54,13 +46,10 @@ export namespace XObject {
     }
 
     /**
-     * Checks if an object is a value type.
-     *
      * 检查对象是否为值类型。
-     *
-     * @param obj object instance. 对象实例。
-     *
-     * @returns whether the object is a value type. 对象是否为值类型。
+     * 
+     * @param obj 对象实例。
+     * @returns 对象是否为值类型。
      */
     export function IsValue(obj: any): boolean {
         if (obj == null) return false
@@ -73,13 +62,10 @@ export namespace XObject {
     }
 
     /**
-     * Checks if an object is a reference type.
-     *
      * 检查对象是否为引用类型。
-     *
-     * @param obj object instance. 对象实例。
-     *
-     * @returns whether the object is a reference type. 对象是否为引用类型。
+     * 
+     * @param obj 对象实例。
+     * @returns 对象是否为引用类型。
      */
     export function IsObject(obj: any): boolean {
         if (obj == null || IsValue(obj) || IsFunction(obj)) {
@@ -90,13 +76,10 @@ export namespace XObject {
     }
 
     /**
-     * Checks if an object is a function type.
-     *
      * 检查对象是否为函数类型。
-     *
-     * @param obj object instance. 对象实例。
-     *
-     * @returns whether the object is a function type. 对象是否为函数类型。
+     * 
+     * @param obj 对象实例。
+     * @returns 对象是否为函数类型。
      */
     export function IsFunction(obj: any): boolean {
         if (obj == null) {
@@ -111,13 +94,10 @@ export namespace XObject {
     }
 
     /**
-     * Checks if an object is a class type.
-     *
      * 检查对象是否为类型。
-     *
-     * @param obj class instance. 类型实例。
-     *
-     * @returns whether the object is a class type. 对象是否为类型。
+     * 
+     * @param obj 类型实例。
+     * @returns 对象是否为类型。
      */
     export function IsClass(obj: any): boolean {
         if (obj == null) {
@@ -131,14 +111,11 @@ export namespace XObject {
     }
 
     /**
-     * Gets the key of a value in an object.
-     *
      * 获取对象中某个值的键。
-     *
-     * @param obj object instance. 对象实例。
-     * @param value value. 值。
-     *
-     * @returns key of the value. 值的键。
+     * 
+     * @param obj 对象实例。
+     * @param value 值。
+     * @returns 值的键。
      */
     export function Key(obj: any, value: any): string {
         if (obj != null && value != null) {
@@ -152,14 +129,11 @@ export namespace XObject {
     }
 
     /**
-     * Gets the value of a key in an object.
-     *
      * 获取对象中某个键的值。
-     *
-     * @param obj object instance. 对象实例。
-     * @param key key. 键。
-     *
-     * @returns value of the key. 键的值。
+     * 
+     * @param obj 对象实例。
+     * @param key 键。
+     * @returns 键的值。
      */
     export function Value(obj: any, key: string): any {
         if (obj != null && key != null) {
@@ -171,15 +145,12 @@ export namespace XObject {
     }
 
     /**
-     * Reflectively calls a function.
-     *
      * 反射调用函数。
-     *
-     * @param obj object instance. 对象实例。
-     * @param key key name. 键名称。
-     * @param args arguments. 参数。
-     *
-     * @returns result of the function call. 函数调用的结果。
+     * 
+     * @param obj 对象实例。
+     * @param key 键名称。
+     * @param args 参数。
+     * @returns 函数调用的结果。
      */
     export function Invoke(obj: any, key: string, ...args: any[]) {
         if (obj != null && key != null) {
@@ -191,14 +162,11 @@ export namespace XObject {
     }
 
     /**
-     * Clones an object.
-     *
      * 对象克隆。
-     *
-     * @param obj object instance. 对象实例。
-     * @param exclude fields to exclude. 忽略字段。
-     *
-     * @returns cloned object. 克隆的对象。
+     * 
+     * @param obj 对象实例。
+     * @param exclude 忽略字段。
+     * @returns 克隆的对象。
      */
     export function Clone<T>(obj: any, ...exclude: Array<string>): T {
         if (obj == null || typeof obj !== "object") return obj
@@ -222,13 +190,10 @@ export namespace XObject {
     }
 
     /**
-     * Generates a hash code for an object.
-     *
      * 对象实例哈希。
-     *
-     * @param obj object instance. 对象实例。
-     *
-     * @returns hash code. 哈希码。
+     * 
+     * @param obj 对象实例。
+     * @returns 哈希码。
      */
     export function HashCode(obj: any): number {
         let hash = 0
@@ -267,15 +232,12 @@ export namespace XObject {
     }
 
     /**
-     * Hooks a function.
-     *
      * 函数注入。
-     *
-     * @param obj instance/type. 实例/类型。
-     * @param from source function name. 源函数名。
-     * @param to target function. 目标函数。
-     *
-     * @returns original function. 原始函数。
+     * 
+     * @param obj 实例/类型。
+     * @param from 源函数名。
+     * @param to 目标函数。
+     * @returns 原始函数。
      */
     export function Hook(obj: any, from: string, to: Function) {
         let ret = null
@@ -306,14 +268,11 @@ export namespace XObject {
     }
 
     /**
-     * Unhooks a function.
-     *
      * 函数恢复。
-     *
-     * @param obj instance/type. 实例/类型。
-     * @param from source function name. 源函数名。
-     *
-     * @returns original function. 原始函数。
+     * 
+     * @param obj 实例/类型。
+     * @param from 源函数名。
+     * @returns 原始函数。
      */
     export function Unhook(obj: any, from: string) {
         let ret = null

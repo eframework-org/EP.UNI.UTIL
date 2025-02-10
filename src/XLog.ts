@@ -9,41 +9,37 @@ import { XString } from "./XString"
 import { XTime } from "./XTime"
 
 /**
- * Log utility class.
- *
  * 日志工具类。
  */
 export namespace XLog {
     /**
-     * Log levels.
-     *
      * 日志等级。
-     * RFC5424 log standard, including structured data format.
-     * Specifies eight severity levels for log messages, indicating the severity or urgency of the recorded event.
+     * 基于 RFC5424 标准，包含结构化数据格式。
+     * 指定了八个严重程度等级，用于表示记录事件的严重性或紧急程度。
      */
     export enum LogLevel {
-        /** Emergency (0): System is unusable, typically used for catastrophic failures. 紧急（0）：系统不可用，通常用于灾难性故障。 */
+        /** 紧急（0）：系统不可用，通常用于灾难性故障。 */
         Emergency = 0,
 
-        /** Alert (1): Action must be taken immediately, indicating a situation that needs immediate attention. 警报（1）：必须立即采取行动，指示需要立即注意的情况。 */
+        /** 警报（1）：必须立即采取行动，指示需要立即注意的情况。 */
         Alert = 1,
 
-        /** Critical (2): Critical conditions, indicating severe faults that need immediate attention. 严重（2）：严重条件，指示需要立即注意的严重故障。 */
+        /** 严重（2）：严重条件，指示需要立即注意的严重故障。 */
         Critical = 2,
 
-        /** Error (3): Error conditions, indicating errors that should be resolved. 错误（3）：错误条件，指示应该解决的错误。 */
+        /** 错误（3）：错误条件，指示应该解决的错误。 */
         Error = 3,
 
-        /** Warning (4): Warning conditions, indicating potential issues that may lead to errors if not addressed. 警告（4）：警告条件，指示潜在问题，如果不解决可能会导致错误。 */
+        /** 警告（4）：警告条件，指示潜在问题，如果不解决可能会导致错误。 */
         Warn = 4,
 
-        /** Notice (5): Normal but significant conditions, indicating noteworthy events that are not necessarily problematic. 通知（5）：正常但重要的情况，指示值得注意但不一定有问题的事件。 */
+        /** 通知（5）：正常但重要的情况，指示值得注意但不一定有问题的事件。 */
         Notice = 5,
 
-        /** Information (6): Informational messages, used for general information about system operations. 信息（6）：信息消息，用于系统操作的一般信息。 */
+        /** 信息（6）：信息消息，用于系统操作的一般信息。 */
         Info = 6,
 
-        /** Debug (7): Debug-level messages, used for debugging and troubleshooting purposes. 调试（7）：调试级别的消息，用于调试和故障排除目的的消息。 */
+        /** 调试（7）：调试级别的消息，用于调试和故障排除目的的消息。 */
         Debug = 7,
     }
 
@@ -113,108 +109,90 @@ export namespace XLog {
     var mChannel: any = null
 
     /**
-     * Panic output.
-     *
      * 异常输出。
-     *
-     * @param exception exception information. 异常信息。
-     * @param extras additional information. 附加信息。
+     * 
+     * @param exception 异常信息。
+     * @param extras 附加信息。
      */
     export function Panic(exception: Error, extras?: string) {
         console.error(exception, extras)
     }
 
     /**
-     * Emergency (0): System is unusable, typically used for catastrophic failures.
-     *
      * 紧急（0）：系统不可用，通常用于灾难性故障。
-     *
-     * @param data log content. 日志内容。
-     * @param args format parameters. 格式参数。
+     * 
+     * @param data 日志内容。
+     * @param args 格式参数。
      */
     export function Emergency(data: any, ...args: any[]) {
         Print(data, LogLevel.Emergency, args)
     }
 
     /**
-     * Alert (1): Action must be taken immediately, indicating a situation that needs immediate attention.
-     *
      * 警报（1）：必须立即采取行动，指示需要立即注意的情况。
-     *
-     * @param data log content. 日志内容。
-     * @param args format parameters. 格式参数。
+     * 
+     * @param data 日志内容。
+     * @param args 格式参数。
      */
     export function Alert(data: any, ...args: any[]) {
         Print(data, LogLevel.Alert, args)
     }
 
     /**
-     * Critical (2): Critical conditions, indicating severe faults that need immediate attention.
-     *
      * 严重（2）：严重条件，指示需要立即注意的严重故障。
-     *
-     * @param data log content. 日志内容。
-     * @param args format parameters. 格式参数。
+     * 
+     * @param data 日志内容。
+     * @param args 格式参数。
      */
     export function Critical(data: any, ...args: any[]) {
         Print(data, LogLevel.Critical, args)
     }
 
     /**
-     * Error (3): Error conditions, indicating errors that should be resolved.
-     *
      * 错误（3）：错误条件，指示应该解决的错误。
-     *
-     * @param data log content. 日志内容。
-     * @param args format parameters. 格式参数。
+     * 
+     * @param data 日志内容。
+     * @param args 格式参数。
      */
     export function Error(data: any, ...args: any[]) {
         Print(data, LogLevel.Error, args)
     }
 
     /**
-     * Warning (4): Warning conditions, indicating potential issues that may lead to errors if not addressed.
-     *
      * 警告（4）：警告条件，指示潜在问题，如果不解决可能会导致错误。
-     *
-     * @param data log content. 日志内容。
-     * @param args format parameters. 格式参数。
+     * 
+     * @param data 日志内容。
+     * @param args 格式参数。
      */
     export function Warn(data: any, ...args: any[]) {
         Print(data, LogLevel.Warn, args)
     }
 
     /**
-     * Notice (5): Normal but significant conditions, indicating noteworthy events that are not necessarily problematic.
-     *
      * 通知（5）：正常但重要的情况，指示值得注意但不一定有问题的事件。
-     *
-     * @param data log content. 日志内容。
-     * @param args format parameters. 格式参数。
+     * 
+     * @param data 日志内容。
+     * @param args 格式参数。
      */
     export function Notice(data: any, ...args: any[]) {
         Print(data, LogLevel.Notice, args)
     }
 
     /**
-     * Information (6): Informational messages, used for general information about system operations.
-     *
      * 信息（6）：信息消息，用于系统操作的一般信息。
-     *
-     * @param data log content. 日志内容。
-     * @param args format parameters. 格式参数。
+     * 
+     * @param data 日志内容。
+     * @param args 格式参数。
      */
     export function Info(data: any, ...args: any[]) {
         Print(data, LogLevel.Info, args)
     }
 
     /**
-     * Debug (7): Debug-level messages, used for debugging and troubleshooting purposes.
-     *
      * 调试（7）：调试级别的消息，用于调试和故障排除目的的消息。
-     *
-     * @param data log content. 日志内容。
-     * @param args format parameters. 格式参数。
+     * 
+     * @param data 日志内容。
+     * @param args 格式参数。
      */
     export function Debug(data: any, ...args: any[]) {
         Print(data, LogLevel.Debug, args)
@@ -237,13 +215,11 @@ export namespace XLog {
     }
 
     /**
-     * Handles log.
-     *
      * 处理日志。
-     *
-     * @param fmt log format. 日志格式。
-     * @param level log level. 日志等级。
-     * @param args format parameters. 格式化参数。
+     * 
+     * @param fmt 日志格式。
+     * @param level 日志等级。
+     * @param args 格式化参数。
      */
     export function Print(fmt: any, level: LogLevel, ...args: Array<any>) {
         try {
@@ -289,14 +265,11 @@ export namespace XLog {
     }
 
     /**
-     * Gets stack trace information.
-     *
      * 获取堆栈信息。
-     *
-     * @param stack stack level. 堆栈层级。
-     * @param err error message. 错误信息。
-     *
-     * @returns stack trace information. 堆栈信息。
+     * 
+     * @param stack 堆栈层级。
+     * @param err 错误信息。
+     * @returns 堆栈信息。
      */
     export function Trace(stack?: number, err?: string): string {
         const trace: string[] = new globalThis.Error(err).stack?.replace(/\r\n/g, "\n").split("\n").slice(2 + (stack != null ? stack : 0))

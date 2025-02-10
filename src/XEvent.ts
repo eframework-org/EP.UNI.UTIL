@@ -7,23 +7,17 @@
 import { XLog } from "./XLog"
 
 /**
- * Event utility class.
- *
  * 事件工具类。
  */
 export namespace XEvent {
     /**
-     * Event callback.
-     *
      * 事件回调。
-     *
-     * @param args event arguments. 事件参数。
+     * 
+     * @param args 事件参数。
      */
     export type Callback = (...args: any[]) => void
 
     /**
-     * Event management.
-     *
      * 事件管理。
      */
     export class Manager {
@@ -33,11 +27,9 @@ export namespace XEvent {
         protected mBatches: Callback[]
 
         /**
-         * Constructor.
-         *
          * 构造函数。
-         *
-         * @param multiple whether multiple callbacks are allowed. 是否允许多个回调。
+         * 
+         * @param multiple 是否允许多个回调。
          */
         constructor(multiple: boolean = true) {
             this.mMultiple = multiple
@@ -47,8 +39,6 @@ export namespace XEvent {
         }
 
         /**
-         * Clears event registrations.
-         *
          * 清除事件注册。
          */
         public Clear() {
@@ -58,28 +48,22 @@ export namespace XEvent {
         }
 
         /**
-         * Gets event callbacks.
-         *
          * 获取事件回调。
-         *
-         * @param eid event identifier. 事件标识。
-         *
-         * @returns event callbacks. 事件回调。
+         * 
+         * @param eid 事件标识。
+         * @returns 事件回调。
          */
         public Get(eid: number): Callback[] | null {
             return this.mCallbacks.get(eid) || null
         }
 
         /**
-         * Registers an event.
-         *
          * 注册事件。
-         *
-         * @param eid event identifier. 事件标识。
-         * @param callback callback function. 回调函数。
-         * @param once callback once. 回调一次。
-         *
-         * @returns whether registration was successful. 是否成功注册。
+         * 
+         * @param eid 事件标识。
+         * @param callback 回调函数。
+         * @param once 回调一次。
+         * @returns 是否成功注册。
          */
         public Reg(eid: number, callback: Callback, once: boolean = false): boolean {
             if (callback == null) {
@@ -108,14 +92,11 @@ export namespace XEvent {
         }
 
         /**
-         * Unregisters an event.
-         *
          * 注销事件。
-         *
-         * @param eid event identifier. 事件标识。
-         * @param callback callback function. 回调函数。
-         *
-         * @returns whether unregistration was successful. 是否成功注销。
+         * 
+         * @param eid 事件标识。
+         * @param callback 回调函数。
+         * @returns 是否成功注销。
          */
         public Unreg(eid: number, callback?: Callback): boolean {
             let ret = false
@@ -147,12 +128,10 @@ export namespace XEvent {
         }
 
         /**
-         * Notifies an event.
-         *
          * 通知事件。
-         *
-         * @param eid event identifier. 事件标识。
-         * @param args event arguments. 事件参数。
+         * 
+         * @param eid 事件标识。
+         * @param args 事件参数。
          */
         public Notify(eid: number, ...args: any[]): void {
             if (this.mCallbacks.has(eid)) {

@@ -10,8 +10,6 @@ import { XObject } from "./XObject"
 import { XTime } from "./XTime"
 
 /**
- * Test utility class.
- *
  * 测试工具类。
  */
 export namespace XTest {
@@ -22,8 +20,6 @@ export namespace XTest {
     }
 
     /**
-     * Jest environment.
-     *
      * Jest环境。
      */
     export const IsJest: boolean = getIsJest()
@@ -31,12 +27,10 @@ export namespace XTest {
     var mCurrent: string = "Unknown"
 
     /**
-     * Defines a test.
-     *
      * 定义一个测试。
-     *
-     * @param name test name. 测试名称。
-     * @param fn test function. 测试函数。
+     * 
+     * @param name 测试名称。
+     * @param fn 测试函数。
      */
     export function Test(name: string, fn: () => Promise<void>) {
         if (IsJest) {
@@ -59,23 +53,18 @@ export namespace XTest {
     }
 
     /**
-     * Creates an expectation.
-     *
      * 测试期望。
-     *
-     * @param obj object to test. 测试对象。
-     * @param tag optional tag. 可选标签。
-     * @param args optional arguments. 可选参数。
-     *
-     * @returns Assert instance. 断言实例。
+     * 
+     * @param obj 测试对象。
+     * @param tag 可选标签。
+     * @param args 可选参数。
+     * @returns 断言实例。
      */
     export function Expect(obj: any, tag?: string, ...args: any[]): Assert {
         return new Assert(obj, tag, ...args)
     }
 
     /**
-     * Test assertion class.
-     *
      * 测试断言类。
      */
     export class Assert {
@@ -86,13 +75,11 @@ export namespace XTest {
         private mJObj: any
 
         /**
-         * Constructor.
-         *
          * 构造函数。
-         *
-         * @param obj object to test. 测试对象。
-         * @param tag optional tag. 可选标签。
-         * @param args optional arguments. 可选参数。
+         * 
+         * @param obj 测试对象。
+         * @param tag 可选标签。
+         * @param args 可选参数。
          */
         constructor(obj: any, tag?: string, ...args: any[]) {
             this.Tag = tag ? tag : "Untagged"
@@ -102,11 +89,9 @@ export namespace XTest {
         }
 
         /**
-         * Negates the assertion.
-         *
          * 否定断言。
-         *
-         * @returns Assert instance. 断言实例。
+         * 
+         * @returns 断言实例。
          */
         public get Not(): Assert {
             this.IsNot = !this.IsNot
@@ -114,26 +99,20 @@ export namespace XTest {
         }
 
         /**
-         * Checks if the object is equal to the expected value.
-         *
          * 检查对象是否等于预期值。
-         *
-         * @param expected expected value. 预期值。
-         *
-         * @returns whether the assertion passed. 断言是否通过。
+         * 
+         * @param expected 预期值。
+         * @returns 断言是否通过。
          */
         public ToEqual(expected: any): boolean {
             return this.ToBe(expected)
         }
 
         /**
-         * Checks if the object is equal to the expected value.
-         *
          * 检查对象是否等于预期值。
-         *
-         * @param expected expected value. 预期值。
-         *
-         * @returns whether the assertion passed. 断言是否通过。
+         * 
+         * @param expected 预期值。
+         * @returns 断言是否通过。
          */
         public ToBe(expected: any): boolean {
             let ret = false
@@ -141,7 +120,7 @@ export namespace XTest {
             if (IsJest) {
                 ret = this.IsNot ? this.mJObj.not.toBe(expected) : this.mJObj.toBe(expected)
             } else {
-                ret = this.IsNot ? this.Obj != expected : this.Obj == expected
+                ret = this.IsNot ? this.Obj !== expected : this.Obj === expected
             }
             if (ret == false) throw new Error(`${expr} was not expected${this.Args && this.Args.length > 0 ? ", Args: " : "."}${this.Args && this.Args.length > 0 ? this.Args : ""}`)
             XLog.Debug(`${expr} was expected${this.Args && this.Args.length > 0 ? ", Args: " : "."}`, ...this.Args)
@@ -149,13 +128,10 @@ export namespace XTest {
         }
 
         /**
-         * Checks if the object is greater than the expected value.
-         *
          * 检查对象是否大于预期值。
-         *
-         * @param expected expected value. 预期值。
-         *
-         * @returns whether the assertion passed. 断言是否通过。
+         * 
+         * @param expected 预期值。
+         * @returns 断言是否通过。
          */
         public ToBeGreaterThan(expected: number): boolean {
             let ret = false
@@ -171,13 +147,10 @@ export namespace XTest {
         }
 
         /**
-         * Checks if the object is greater than or equal to the expected value.
-         *
          * 检查对象是否大于或等于预期值。
-         *
-         * @param expected expected value. 预期值。
-         *
-         * @returns whether the assertion passed. 断言是否通过。
+         * 
+         * @param expected 预期值。
+         * @returns 断言是否通过。
          */
         public ToBeGreaterThanOrEqual(expected: number): boolean {
             let ret = false
@@ -193,13 +166,10 @@ export namespace XTest {
         }
 
         /**
-         * Checks if the object is less than the expected value.
-         *
          * 检查对象是否小于预期值。
-         *
-         * @param expected expected value. 预期值。
-         *
-         * @returns whether the assertion passed. 断言是否通过。
+         * 
+         * @param expected 预期值。
+         * @returns 断言是否通过。
          */
         public ToBeLessThan(expected: number): boolean {
             let ret = false
@@ -215,13 +185,10 @@ export namespace XTest {
         }
 
         /**
-         * Checks if the object is less than or equal to the expected value.
-         *
          * 检查对象是否小于或等于预期值。
-         *
-         * @param expected expected value. 预期值。
-         *
-         * @returns whether the assertion passed. 断言是否通过。
+         * 
+         * @param expected 预期值。
+         * @returns 断言是否通过。
          */
         public ToBeLessThanOrEqual(expected: number): boolean {
             let ret = false
@@ -237,11 +204,9 @@ export namespace XTest {
         }
 
         /**
-         * Checks if the object is null.
-         *
          * 检查对象是否为 null。
-         *
-         * @returns whether the assertion passed. 断言是否通过。
+         * 
+         * @returns 断言是否通过。
          */
         public ToBeNull(): boolean {
             let ret = false
@@ -257,11 +222,9 @@ export namespace XTest {
         }
 
         /**
-         * Checks if the object is undefined.
-         *
          * 检查对象是否为 undefined。
-         *
-         * @returns whether the assertion passed. 断言是否通过。
+         * 
+         * @returns 断言是否通过。
          */
         public ToBeUndefined(): boolean {
             let ret = false
@@ -277,11 +240,9 @@ export namespace XTest {
         }
 
         /**
-         * Checks if the object is NaN.
-         *
          * 检查对象是否为 NaN。
-         *
-         * @returns whether the assertion passed. 断言是否通过。
+         * 
+         * @returns 断言是否通过。
          */
         public ToBeNaN(): boolean {
             let ret = false
