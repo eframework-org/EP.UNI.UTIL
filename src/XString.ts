@@ -33,13 +33,18 @@ export namespace XString {
     /**
      * 字符串索引。
      * 
-     * @param str 字符串实例。
-     * @param _of 特征字符串。
-     * @returns 子字符串的索引。
+     * @param str 源字符串。
+     * @param sub 要查找的子字符串。
+     * @returns 子字符串的索引，如果未找到返回 -1。
+     * @example
+     * ```typescript
+     * XString.IndexOf("hello world", "world"); // 返回 6
+     * XString.IndexOf("hello world", "xyz"); // 返回 -1
+     * ```
      */
-    export function IndexOf(str: string, _of: string): number {
-        if (IsNullOrEmpty(str) == false && IsNullOrEmpty(_of) == false) {
-            return str.indexOf(_of)
+    export function IndexOf(str: string, sub: string): number {
+        if (IsNullOrEmpty(str) == false && IsNullOrEmpty(sub) == false) {
+            return str.indexOf(sub)
         }
         return -1
     }
@@ -53,11 +58,12 @@ export namespace XString {
      * @example
      * ```typescript
      * XString.LastIndexOf("hello.world.js", "."); // 返回 10
+     * XString.LastIndexOf("hello world", "o"); // 返回 7
      * ```
      */
-    export function LastIndexOf(str: string, _of: string): number {
-        if (IsNullOrEmpty(str) == false && IsNullOrEmpty(_of) == false) {
-            return str.lastIndexOf(_of)
+    export function LastIndexOf(str: string, sub: string): number {
+        if (IsNullOrEmpty(str) == false && IsNullOrEmpty(sub) == false) {
+            return str.lastIndexOf(sub)
         }
         return -1
     }
@@ -112,13 +118,18 @@ export namespace XString {
     /**
      * 字符串分割。
      * 
-     * @param str 字符串实例。
-     * @param _of 特征字符串。
-     * @returns 子字符串数组。
+     * @param str 源字符串。
+     * @param sep 分隔符。
+     * @returns 分割后的子字符串数组。
+     * @example
+     * ```typescript
+     * XString.Split("a,b,c", ","); // 返回 ["a", "b", "c"]
+     * XString.Split("hello world", " "); // 返回 ["hello", "world"]
+     * ```
      */
-    export function Split(str: string, _of: string): string[] {
-        if (IsNullOrEmpty(str) == false && IsNullOrEmpty(_of) == false) {
-            return str.split(_of)
+    export function Split(str: string, sep: string): string[] {
+        if (IsNullOrEmpty(str) == false && IsNullOrEmpty(sep) == false) {
+            return str.split(sep)
         }
         return null
     }
@@ -126,35 +137,50 @@ export namespace XString {
     /**
      * 字符串是否包含。
      * 
-     * @param str 字符串实例。
-     * @param _of 特征字符串。
-     * @returns 字符串是否包含子字符串。
+     * @param str 源字符串。
+     * @param sub 要查找的子字符串。
+     * @returns 是否包含指定的子字符串。
+     * @example
+     * ```typescript
+     * XString.Contains("hello world", "world"); // 返回 true
+     * XString.Contains("hello world", "xyz"); // 返回 false
+     * ```
      */
-    export function Contains(str: string, _of: string): boolean {
-        return IndexOf(str, _of) >= 0
+    export function Contains(str: string, sub: string): boolean {
+        return IndexOf(str, sub) >= 0
     }
 
     /**
      * 字符串头部匹配。
      * 
-     * @param str 字符串实例。
-     * @param _of 特征字符串。
-     * @returns 字符串是否以子字符串开头。
+     * @param str 源字符串。
+     * @param prefix 前缀字符串。
+     * @returns 是否以指定字符串开头。
+     * @example
+     * ```typescript
+     * XString.StartsWith("hello world", "hello"); // 返回 true
+     * XString.StartsWith("hello world", "world"); // 返回 false
+     * ```
      */
-    export function StartsWith(str: string, _of: string): boolean {
-        return IndexOf(str, _of) == 0
+    export function StartsWith(str: string, prefix: string): boolean {
+        return IndexOf(str, prefix) == 0
     }
 
     /**
      * 字符串尾部匹配。
      * 
-     * @param str 字符串实例。
-     * @param _of 特征字符串。
-     * @returns 字符串是否以子字符串结尾。
+     * @param str 源字符串。
+     * @param suffix 后缀字符串。
+     * @returns 是否以指定字符串结尾。
+     * @example
+     * ```typescript
+     * XString.EndsWith("hello world", "world"); // 返回 true
+     * XString.EndsWith("hello world", "hello"); // 返回 false
+     * ```
      */
-    export function EndsWith(str: string, _of: string): boolean {
-        if (IsNullOrEmpty(str) == false && IsNullOrEmpty(_of) == false) {
-            return str.endsWith(_of)
+    export function EndsWith(str: string, suffix: string): boolean {
+        if (IsNullOrEmpty(str) == false && IsNullOrEmpty(suffix) == false) {
+            return str.endsWith(suffix)
         }
         return false
     }
