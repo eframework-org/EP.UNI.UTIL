@@ -9,16 +9,7 @@
 - Node.js 16.11.7：运行环境
 
 ### 2. 核心功能
-- XCollect：集合操作工具
-- XEnv：环境变量和运行时检测
-- XEvent：事件系统
-- XFile：文件操作工具
-- XLog：日志工具
-- XObject：对象操作工具
-- XString：字符串处理工具
-- XTest：测试框架
-- XTime：时间工具
-- XUtility：通用工具函数
+详见 [README.md 核心模块](README.md#核心模块)。
 
 ### 3. 构建工具
 - rollup 2.79.1：代码打包
@@ -47,16 +38,7 @@
 
 ### 1. 源码目录
 - src/：源码目录
-  - XCollect.ts：集合工具
-  - XEnv.ts：环境检测
-  - XEvent.ts：事件系统
-  - XFile.ts：文件操作
-  - XLog.ts：日志工具
-  - XObject.ts：对象工具
-  - XString.ts：字符串工具
-  - XTest.ts：测试框架
-  - XTime.ts：时间工具
-  - XUtility.ts：通用工具
+ 详见 [README.md 核心模块](README.md#核心模块)。
 
 ### 2. 构建目录
 - dist/：构建输出目录
