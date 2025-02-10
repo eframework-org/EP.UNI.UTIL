@@ -340,27 +340,27 @@ export namespace XEnv {
         } else throw XEnv.Unsupport
     }
 
-    var dataPath: string
+    var localPath: string
     /**
      * 获取数据存储路径。
      * 根据不同运行时环境返回适当的数据存储位置。
      * 
      * @returns 数据存储路径。
      */
-    function getDataPath(): string {
-        if (dataPath == null) {
+    function getLocalPath(): string {
+        if (localPath == null) {
             if (XEnv.IsNode) {
                 if (typeof jest != "undefined") {
-                    dataPath = process.cwd()
+                    localPath = process.cwd()
                 } else {
                     if (require.main && require.main.filename) {
                         let dir = directoryName(require.main.filename)
                         if (hasFile(pathJoin(dir, "package.json"))) {
-                            dataPath = dir
+                            localPath = dir
                         } else {
                             dir = pathJoin(dir, "..")
                             if (hasFile(pathJoin(dir, "package.json"))) {
-                                dataPath = dir
+                                localPath = dir
                             }
                         }
                     } else {
@@ -378,58 +378,58 @@ export namespace XEnv {
                                     let file = strs[0] + ".js"
                                     let dir = directoryName(file)
                                     if (hasFile(pathJoin(dir, "package.json"))) {
-                                        dataPath = dir
+                                        localPath = dir
                                     } else {
                                         dir = pathJoin(dir, "..")
                                         if (hasFile(pathJoin(dir, "package.json"))) {
-                                            dataPath = dir
+                                            localPath = dir
                                         }
                                     }
                                 }
-                                if (dataPath != null) break
+                                if (localPath != null) break
                             }
                         }
                     }
                 }
 
-                if (dataPath == null) {
+                if (localPath == null) {
                     let dir = __dirname
                     if (hasFile(pathJoin(dir, "package.json"))) {
-                        dataPath = dir
+                        localPath = dir
                     } else {
                         dir = pathJoin(dir, "..")
                         if (hasFile(pathJoin(dir, "package.json"))) {
-                            dataPath = dir
+                            localPath = dir
                         }
                     }
                 }
 
-                if (dataPath == null) dataPath = "Unknown"
-                else dataPath = pathJoin(dataPath, "local")
+                if (localPath == null) localPath = "Unknown"
+                else localPath = pathJoin(localPath, "local")
             } else if (XEnv.IsBrowser) {
-                dataPath = "file://"
+                localPath = "file://"
             } else if (XEnv.IsCocos) {
-                dataPath = pathJoin(jsb.fileUtils.getWritablePath(), "local")
+                localPath = pathJoin(jsb.fileUtils.getWritablePath(), "local")
             } else if (XEnv.IsUnity) {
                 if (CS.UnityEngine.Application.isEditor) {
-                    dataPath = pathJoin(CS.UnityEngine.Application.dataPath, "..", "Local")
+                    localPath = pathJoin(CS.UnityEngine.Application.dataPath, "..", "Local")
                 } else if (CS.UnityEngine.Application.platform == CS.UnityEngine.RuntimePlatform.WindowsPlayer) {
-                    dataPath = pathJoin(CS.UnityEngine.Application.streamingAssetsPath, "..", "Local")
+                    localPath = pathJoin(CS.UnityEngine.Application.streamingAssetsPath, "..", "Local")
                 } else {
-                    dataPath = normalizePath(CS.UnityEngine.Application.persistentDataPath)
+                    localPath = normalizePath(CS.UnityEngine.Application.persistentDataPath)
                 }
             }
-            if (dataPath != "Unknown") {
-                if (hasDirectory(dataPath) == false) createDirectory(dataPath)
+            if (localPath != "Unknown") {
+                if (hasDirectory(localPath) == false) createDirectory(localPath)
             }
         }
-        return dataPath
+        return localPath
     }
 
     /**
      * 数据路径。
      */
-    export const DataPath = getDataPath()
+    export const LocalPath = getLocalPath()
 
     /**
      * 获取包信息。
@@ -439,7 +439,7 @@ export namespace XEnv {
      */
     function getPackage(): any {
         if (XEnv.IsNode) {
-            const pf = pathJoin(DataPath, "..", "package.json")
+            const pf = pathJoin(LocalPath, "..", "package.json")
             if (hasFile(pf)) {
                 try {
                     let str = require("fs").readFileSync(pf)

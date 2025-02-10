@@ -9,7 +9,7 @@ import { XUtility } from "../src/XUtility"
 
 export const XUtilityTest = XTest.Test("XUtility", async () => {
     XTest.Expect(XUtility.GenUUID(), "GenUUID").Not.ToBeNull()
-    if (XEnv.IsNode) XTest.Expect(XUtility.ExecOpt(XEnv.DataPath), "ExecOpt").Not.ToBeNull()
+    if (XEnv.IsNode) XTest.Expect(XUtility.ExecOpt(XEnv.LocalPath), "ExecOpt").Not.ToBeNull()
 
     let nums = []
     for (let i = 0; i < 1000; i++) {

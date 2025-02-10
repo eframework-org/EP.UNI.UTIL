@@ -6,7 +6,7 @@ import { XEnv } from "../src/XEnv"
 import { XTest } from "../src/XTest"
 
 export const XEnvTest = XTest.Test("XEnv", async () => {
-    XTest.Expect(XEnv.DataPath, "DataPath").Not.ToBe("Unknown")
+    XTest.Expect(XEnv.LocalPath, "DataPath").Not.ToBe("Unknown")
     if (XEnv.IsNode) {
         const path = require("path")
         if (process.platform == "win32") XTest.Expect(XEnv.Platform, "Platform").ToBe(XEnv.PlatformType.Windows)

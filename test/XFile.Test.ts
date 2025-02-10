@@ -38,7 +38,7 @@ export const XFileTest = XTest.Test("XFile", async () => {
 
     XTest.Expect(XFile.FileExtension(tempPath), "FileExtension").ToBe(".txt")
 
-    let tempRoot = XFile.PathJoin(XEnv.DataPath, "temp")
+    let tempRoot = XFile.PathJoin(XEnv.LocalPath, "temp")
     let tempDir1 = XFile.PathJoin(tempRoot, "dir1")
     if (XFile.HasDirectory(tempDir1)) XFile.DeleteDirectory(tempDir1)
     XFile.CreateDirectory(tempDir1)
@@ -68,11 +68,11 @@ export const XFileTest = XTest.Test("XFile", async () => {
         XFile.CopyDirectory(tempDir1, tempDir2)
         XTest.Expect(XFile.HasDirectory(tempDir2), "CopyDirectory", tempDir1, tempDir2).ToBe(true)
 
-        const testZip = XFile.PathJoin(XEnv.DataPath, "..", "test", "file", "testzip.zip")
+        const testZip = XFile.PathJoin(XEnv.LocalPath, "..", "test", "file", "testzip.zip")
         XFile.Unzip(testZip, tempRoot)
         XTest.Expect(XFile.HasDirectory(XFile.PathJoin(tempRoot, XFile.FileName(testZip, false))), "Unzip", testZip).ToBe(true)
 
-        const test7z = XFile.PathJoin(XEnv.DataPath, "..", "test", "file", "test7z.7z")
+        const test7z = XFile.PathJoin(XEnv.LocalPath, "..", "test", "file", "test7z.7z")
         XFile.Unzip(test7z, tempRoot)
         XTest.Expect(XFile.HasDirectory(XFile.PathJoin(tempRoot, XFile.FileName(test7z, false))), "Unzip", testZip).ToBe(true)
 
