@@ -104,7 +104,7 @@ export namespace XLog {
      *
      * 日志管道（VSCode）。
      */
-    var mChannel: any = null
+    var vscodeChannel: any = null
 
     /**
      * 异常输出。
@@ -149,29 +149,29 @@ export namespace XLog {
     /**
      * 记录错误级别日志。
      * 
-     * @param format 日志格式字符串。
-     * @param args 格式化参数。
+     * @param data 日志内容。
+     * @param args 格式参数。
      * @example
      * ```typescript
      * XLog.Error("Failed to load file: {0}", filename);
      * ```
      */
-    export function Error(format: string, ...args: any[]) {
-        Print(format, LogLevel.Error, args)
+    export function Error(data: any, ...args: any[]) {
+        Print(data, LogLevel.Error, args)
     }
 
     /**
      * 记录警告级别日志。
      * 
-     * @param format 日志格式字符串。
-     * @param args 格式化参数。
+     * @param data 日志内容。
+     * @param args 格式参数。
      * @example
      * ```typescript
      * XLog.Warn("Memory usage high: {0}%", memoryUsage);
      * ```
      */
-    export function Warn(format: string, ...args: any[]) {
-        Print(format, LogLevel.Warn, args)
+    export function Warn(data: any, ...args: any[]) {
+        Print(data, LogLevel.Warn, args)
     }
 
     /**
@@ -187,38 +187,38 @@ export namespace XLog {
     /**
      * 记录信息级别日志。
      * 
-     * @param format 日志格式字符串。
-     * @param args 格式化参数。
+     * @param data 日志内容。
+     * @param args 格式参数。
      * @example
      * ```typescript
      * XLog.Info("Application started, version: {0}", version);
      * ```
      */
-    export function Info(format: string, ...args: any[]) {
-        Print(format, LogLevel.Info, args)
+    export function Info(data: any, ...args: any[]) {
+        Print(data, LogLevel.Info, args)
     }
 
     /**
      * 记录调试级别日志。
      * 
-     * @param format 日志格式字符串。
-     * @param args 格式化参数。
+     * @param data 日志内容。
+     * @param args 格式参数。
      * @example
      * ```typescript
      * XLog.Debug("Processing item {0} of {1}", current, total);
      * ```
      */
-    export function Debug(format: string, ...args: any[]) {
-        Print(format, LogLevel.Debug, args)
+    export function Debug(data: any, ...args: any[]) {
+        Print(data, LogLevel.Debug, args)
     }
 
-    const mIsUnityEditor: boolean = XEnv.IsUnity ? CS.UnityEngine.Application.isEditor : false
-    const mUnityLogRegex = /at ([a-zA-Z0-9#$._ ]+ \()?([^\n\r\*\"\|\<\>]+(.js|.cjs|.mjs|.ts|.mts))\:([0-9]+)\:([0-9]+)\)?/g
+    const isUnityEditor: boolean = XEnv.IsUnity ? CS.UnityEngine.Application.isEditor : false
+    const unityLogRegex = /at ([a-zA-Z0-9#$._ ]+ \()?([^\n\r\*\"\|\<\>]+(.js|.cjs|.mjs|.ts|.mts))\:([0-9]+)\:([0-9]+)\)?/g
 
     function genUnityLink(trace: string[]) {
         for (let i = 0; i < trace.length; i++) {
-            mUnityLogRegex.lastIndex = 0 // 此处未考虑多线程的情况，是否有该使用场景待论证后补充
-            const match = mUnityLogRegex.exec(trace[i])
+            unityLogRegex.lastIndex = 0 // 此处未考虑多线程的情况，是否有该使用场景待论证后补充
+            const match = unityLogRegex.exec(trace[i])
             if (!match) continue
             const path = match[2], line = match[4] ?? "0", column = match[5] ?? "0"
             const search = `${path}:${line}:${column}`
@@ -250,19 +250,19 @@ export namespace XLog {
                 } else if (XEnv.IsCode) {
                     // VSCode Output Channel 不支持 ANSI 转义
                     const lstr = `[${tm}] ${tags[level]} ${fstr}`
-                    if (mChannel == null) {
+                    if (vscodeChannel == null) {
                         const vscode = require("vscode")
-                        mChannel = vscode.window.createOutputChannel(XEnv.Product, { log: true })
+                        vscodeChannel = vscode.window.createOutputChannel(XEnv.Product, { log: true })
                     }
-                    if (level <= LogLevel.Error) mChannel.error(lstr)
-                    else mChannel.info(lstr)
+                    if (level <= LogLevel.Error) vscodeChannel.error(lstr)
+                    else vscodeChannel.info(lstr)
                 } else if (XEnv.IsNode) {
                     const lstr = `[${tm}] ${ansiBrushes[level](tags[level])} ${fstr}`
                     if (level <= LogLevel.Error) console.error(lstr)
                     else console.info(lstr)
                 } else if (XEnv.IsUnity) {
                     let lstr = `[${tm}] ${unityBrushes[level](tags[level])} ${fstr}`
-                    if (mIsUnityEditor) {
+                    if (isUnityEditor) {
                         const trace: string[] = new globalThis.Error().stack?.replace(/\r\n/g, "\n").split("\n").slice(2)
                         if (trace && trace.length > 0) {
                             genUnityLink(trace)
