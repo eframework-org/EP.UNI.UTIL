@@ -51,104 +51,86 @@ export namespace XEnv {
         Browser,
     }
 
-    var mRuntime: RuntimeType = null
+    var runtime: RuntimeType = null
     /**
      * 获取当前运行时类型。
      * 通过检测全局对象特征判断运行时环境。
      * 结果会被缓存以提高性能。
      */
     function getRuntime(): RuntimeType {
-        if (mRuntime == null) {
+        if (runtime == null) {
             if (typeof process !== 'undefined' && !!process.env.VSCODE_PID) {
-                mRuntime = RuntimeType.Code
-                return mRuntime
+                runtime = RuntimeType.Code
+                return runtime
             }
             if (typeof cc !== 'undefined') {
-                mRuntime = RuntimeType.Cocos
-                return mRuntime
+                runtime = RuntimeType.Cocos
+                return runtime
             }
             if (typeof CS !== 'undefined') {
-                mRuntime = RuntimeType.Unity
-                return mRuntime
+                runtime = RuntimeType.Unity
+                return runtime
             }
             if (typeof UE !== 'undefined') {
-                mRuntime = RuntimeType.Unity
-                return mRuntime
+                runtime = RuntimeType.Unity
+                return runtime
             }
-            mRuntime = RuntimeType.Node
+            runtime = RuntimeType.Node
         }
-        return mRuntime
+        return runtime
     }
 
-    var mPlatform: PlatformType = null
+    var platform: PlatformType = null
     /**
      * 获取当前平台类型。
      * 基于运行时环境判断具体的操作系统平台。
      * 结果会被缓存以提高性能。
      */
     function getPlatform(): PlatformType {
-        if (mPlatform == null) {
+        if (platform == null) {
             if (getRuntime() == RuntimeType.Node) {
-                if (process.platform == "win32") mPlatform = PlatformType.Windows
-                else if (process.platform == "darwin") mPlatform = PlatformType.OSX
-                else if (process.platform == "linux") mPlatform = PlatformType.Linux
-                else if (process.platform == "android") mPlatform = PlatformType.Android
-                else mPlatform = PlatformType.Unknown
+                if (process.platform == "win32") platform = PlatformType.Windows
+                else if (process.platform == "darwin") platform = PlatformType.OSX
+                else if (process.platform == "linux") platform = PlatformType.Linux
+                else if (process.platform == "android") platform = PlatformType.Android
+                else platform = PlatformType.Unknown
             } else if (getRuntime() == RuntimeType.Cocos) {
                 // refer: https://docs.cocos.com/creator/3.8/api/zh/variable/sys?id=Platform
                 try {
-                    if (cc.sys.isBrowser) mPlatform = PlatformType.Browser
-                    else if (cc.sys.platform == cc.sys.Platform.WIN32) mPlatform = PlatformType.Windows
-                    else if (cc.sys.platform == cc.sys.Platform.MACOS) mPlatform = PlatformType.OSX
-                    else if (cc.sys.platform == cc.sys.Platform.ANDROID) mPlatform = PlatformType.Android
-                    else if (cc.sys.platform == cc.sys.Platform.IOS) mPlatform = PlatformType.iOS
-                    else mPlatform = PlatformType.Unknown
-                } catch (error) { mPlatform = PlatformType.Unknown }
+                    if (cc.sys.isBrowser) platform = PlatformType.Browser
+                    else if (cc.sys.platform == cc.sys.Platform.WIN32) platform = PlatformType.Windows
+                    else if (cc.sys.platform == cc.sys.Platform.MACOS) platform = PlatformType.OSX
+                    else if (cc.sys.platform == cc.sys.Platform.ANDROID) platform = PlatformType.Android
+                    else if (cc.sys.platform == cc.sys.Platform.IOS) platform = PlatformType.iOS
+                    else platform = PlatformType.Unknown
+                } catch (error) { platform = PlatformType.Unknown }
             } else if (getRuntime() == RuntimeType.Unity) {
                 const plat = CS.UnityEngine.Application.platform
                 const platEnum = CS.UnityEngine.RuntimePlatform
-                if (plat == platEnum.WindowsPlayer || plat == platEnum.WindowsEditor) mPlatform = PlatformType.Windows
-                else if (plat == platEnum.OSXPlayer || plat == platEnum.OSXEditor) mPlatform = PlatformType.OSX
-                else if (plat == platEnum.LinuxPlayer || plat == platEnum.LinuxEditor) mPlatform = PlatformType.Linux
-                else if (plat == platEnum.Android) mPlatform = PlatformType.Android
-                else if (plat == platEnum.IPhonePlayer) mPlatform = PlatformType.iOS
-                else if (plat == platEnum.WebGLPlayer || plat == platEnum.WindowsWebPlayer || plat == platEnum.OSXWebPlayer) mPlatform = PlatformType.Browser
-                else mPlatform = PlatformType.Unknown
+                if (plat == platEnum.WindowsPlayer || plat == platEnum.WindowsEditor) platform = PlatformType.Windows
+                else if (plat == platEnum.OSXPlayer || plat == platEnum.OSXEditor) platform = PlatformType.OSX
+                else if (plat == platEnum.LinuxPlayer || plat == platEnum.LinuxEditor) platform = PlatformType.Linux
+                else if (plat == platEnum.Android) platform = PlatformType.Android
+                else if (plat == platEnum.IPhonePlayer) platform = PlatformType.iOS
+                else if (plat == platEnum.WebGLPlayer || plat == platEnum.WindowsWebPlayer || plat == platEnum.OSXWebPlayer) platform = PlatformType.Browser
+                else platform = PlatformType.Unknown
             }
         }
-        return mPlatform
+        return platform
     }
 
     /**
      * 当前平台类型。
-     * @example
-     * ```typescript
-     * if (XEnv.Platform === XEnv.PlatformType.Windows) {
-     *     // Windows 平台特定代码
-     * }
-     * ```
      */
     export const Platform = getPlatform()
 
     /**
      * 当前运行时类型。
-     * @example
-     * ```typescript
-     * if (XEnv.Runtime === XEnv.RuntimeType.Node) {
-     *     // Node.js 环境特定代码
-     * }
-     * ```
      */
     export const Runtime = getRuntime()
 
     /**
      * 是否为 Node 或 VSCode 运行时。
-     * @example
-     * ```typescript
-     * if (XEnv.IsNode) {
-     *     const fs = require('fs');
-     * }
-     * ```
      */
     export const IsNode = getRuntime() == RuntimeType.Node || getRuntime() == RuntimeType.Code
 
@@ -195,11 +177,6 @@ export namespace XEnv {
      * 
      * @param path 需要规范化的路径。
      * @returns 规范化后的路径。
-     * @example
-     * ```typescript
-     * const path = XEnv.normalizePath("C:\\dir\\..\\file.txt");
-     * // 返回 "C:/dir/file.txt"
-     * ```
      */
     function normalizePath(path: string): string {
         if (typeof path !== "string") throw new TypeError("path must be a string")
@@ -363,33 +340,27 @@ export namespace XEnv {
         } else throw XEnv.Unsupport
     }
 
-    var mDataPath: string
+    var dataPath: string
     /**
      * 获取数据存储路径。
      * 根据不同运行时环境返回适当的数据存储位置。
      * 
      * @returns 数据存储路径。
-     * @example
-     * ```typescript
-     * const dataPath = XEnv.DataPath;
-     * // Node.js: "project_root/local"
-     * // Unity: "Assets/Local"
-     * ```
      */
     function getDataPath(): string {
-        if (mDataPath == null) {
+        if (dataPath == null) {
             if (XEnv.IsNode) {
                 if (typeof jest != "undefined") {
-                    mDataPath = process.cwd()
+                    dataPath = process.cwd()
                 } else {
                     if (require.main && require.main.filename) {
                         let dir = directoryName(require.main.filename)
                         if (hasFile(pathJoin(dir, "package.json"))) {
-                            mDataPath = dir
+                            dataPath = dir
                         } else {
                             dir = pathJoin(dir, "..")
                             if (hasFile(pathJoin(dir, "package.json"))) {
-                                mDataPath = dir
+                                dataPath = dir
                             }
                         }
                     } else {
@@ -407,52 +378,52 @@ export namespace XEnv {
                                     let file = strs[0] + ".js"
                                     let dir = directoryName(file)
                                     if (hasFile(pathJoin(dir, "package.json"))) {
-                                        mDataPath = dir
+                                        dataPath = dir
                                     } else {
                                         dir = pathJoin(dir, "..")
                                         if (hasFile(pathJoin(dir, "package.json"))) {
-                                            mDataPath = dir
+                                            dataPath = dir
                                         }
                                     }
                                 }
-                                if (mDataPath != null) break
+                                if (dataPath != null) break
                             }
                         }
                     }
                 }
 
-                if (mDataPath == null) {
+                if (dataPath == null) {
                     let dir = __dirname
                     if (hasFile(pathJoin(dir, "package.json"))) {
-                        mDataPath = dir
+                        dataPath = dir
                     } else {
                         dir = pathJoin(dir, "..")
                         if (hasFile(pathJoin(dir, "package.json"))) {
-                            mDataPath = dir
+                            dataPath = dir
                         }
                     }
                 }
 
-                if (mDataPath == null) mDataPath = "Unknown"
-                else mDataPath = pathJoin(mDataPath, "local")
+                if (dataPath == null) dataPath = "Unknown"
+                else dataPath = pathJoin(dataPath, "local")
             } else if (XEnv.IsBrowser) {
-                mDataPath = "file://"
+                dataPath = "file://"
             } else if (XEnv.IsCocos) {
-                mDataPath = pathJoin(jsb.fileUtils.getWritablePath(), "local")
+                dataPath = pathJoin(jsb.fileUtils.getWritablePath(), "local")
             } else if (XEnv.IsUnity) {
                 if (CS.UnityEngine.Application.isEditor) {
-                    mDataPath = pathJoin(CS.UnityEngine.Application.dataPath, "..", "Local")
+                    dataPath = pathJoin(CS.UnityEngine.Application.dataPath, "..", "Local")
                 } else if (CS.UnityEngine.Application.platform == CS.UnityEngine.RuntimePlatform.WindowsPlayer) {
-                    mDataPath = pathJoin(CS.UnityEngine.Application.streamingAssetsPath, "..", "Local")
+                    dataPath = pathJoin(CS.UnityEngine.Application.streamingAssetsPath, "..", "Local")
                 } else {
-                    mDataPath = normalizePath(CS.UnityEngine.Application.persistentDataPath)
+                    dataPath = normalizePath(CS.UnityEngine.Application.persistentDataPath)
                 }
             }
-            if (mDataPath != "Unknown") {
-                if (hasDirectory(mDataPath) == false) createDirectory(mDataPath)
+            if (dataPath != "Unknown") {
+                if (hasDirectory(dataPath) == false) createDirectory(dataPath)
             }
         }
-        return mDataPath
+        return dataPath
     }
 
     /**
@@ -465,11 +436,6 @@ export namespace XEnv {
      * 读取并解析 package.json 文件。
      * 
      * @returns 包信息对象。
-     * @example
-     * ```typescript
-     * const pkg = XEnv.getPackage();
-     * console.log(pkg.version);
-     * ```
      */
     function getPackage(): any {
         if (XEnv.IsNode) {
@@ -484,127 +450,127 @@ export namespace XEnv {
         }
     }
 
-    var mProduct: string
+    var product: string
     /**
      * 获取产品名称。
      * 
      * @returns 产品名称。
      */
     function getProduct(): string {
-        if (mProduct == null) {
+        if (product == null) {
             if (XEnv.IsNode) {
                 const pkg = getPackage()
                 if (pkg) {
-                    if (pkg.displayName) mProduct = pkg.displayName
-                    else mProduct = pkg.name
+                    if (pkg.displayName) product = pkg.displayName
+                    else product = pkg.name
                 }
             }
-            else if (XEnv.IsUnity) mProduct = CS.UnityEngine.Application.productName
+            else if (XEnv.IsUnity) product = CS.UnityEngine.Application.productName
 
-            if (mProduct == null) mProduct = "Unknown"
+            if (product == null) product = "Unknown"
         }
-        return mProduct
+        return product
     }
     /**
      * 产品名称。
      */
     export const Product = getProduct()
 
-    var mAuthor: string
+    var author: string
     /**
      * 获取作者名称。
      * 
      * @returns 作者名称。
      */
     function getAuthor(): string {
-        if (mAuthor == null) {
+        if (author == null) {
             if (XEnv.IsNode) {
                 const pkg = getPackage()
                 if (pkg) {
-                    if (pkg.publisher) mAuthor = pkg.publisher
+                    if (pkg.publisher) author = pkg.publisher
                     else if (pkg.author) {
-                        if (typeof (pkg.author) == "string") mAuthor = pkg.author
-                        else mAuthor = pkg.author.name
+                        if (typeof (pkg.author) == "string") author = pkg.author
+                        else author = pkg.author.name
                     }
                 }
             }
 
-            if (mAuthor == null) mAuthor = "Unknown"
+            if (author == null) author = "Unknown"
         }
-        return mAuthor
+        return author
     }
     /**
      * 作者名称。
      */
     export const Author = getAuthor()
 
-    var mIdentifier: string
+    var identifier: string
     /**
      * 获取标识符。
      * 
      * @returns 标识符。
      */
     export function getIdentifier(): string {
-        if (mIdentifier == null) {
+        if (identifier == null) {
             if (XEnv.IsNode) {
                 const pkg = getPackage()
-                if (pkg) mIdentifier = pkg.name
+                if (pkg) identifier = pkg.name
             }
-            else if (XEnv.IsUnity) mIdentifier = CS.UnityEngine.Application.identifier
+            else if (XEnv.IsUnity) identifier = CS.UnityEngine.Application.identifier
 
-            if (mIdentifier == null || mIdentifier == "") mIdentifier = "Unknown"
+            if (identifier == null || identifier == "") identifier = "Unknown"
         }
-        return mIdentifier
+        return identifier
     }
     /**
-     * 标识符。
+     * 应用标识符。
      */
     export const Identifier = getIdentifier()
 
-    var mVersion: string
+    var version: string
     /**
      * 获取版本。
      * 
      * @returns 版本。
      */
     function getVersion(): string {
-        if (mVersion == null) {
+        if (version == null) {
             if (XEnv.IsNode) {
                 const pkg = getPackage()
-                if (pkg) mVersion = pkg.version
+                if (pkg) version = pkg.version
             }
-            else if (XEnv.IsUnity) mVersion = CS.UnityEngine.Application.version
+            else if (XEnv.IsUnity) version = CS.UnityEngine.Application.version
 
-            if (mVersion == null) mVersion = "0.0"
+            if (version == null) version = "0.0"
         }
-        return mVersion
+        return version
     }
 
     /**
-     * 版本。
+     * 应用版本。
      */
     export const Version = getVersion()
 
-    var mDescription: string
+    var description: string
     /**
      * 获取描述。
      * 
      * @returns 描述。
      */
     function getDescription(): string {
-        if (mDescription == null) {
+        if (description == null) {
             if (XEnv.IsNode) {
                 const pkg = getPackage()
-                if (pkg) mDescription = pkg.description
+                if (pkg) description = pkg.description
             }
 
-            if (mDescription == null) mDescription = ""
+            if (description == null) description = ""
         }
-        return mDescription
+        return description
     }
 
     /**
-     * 描述。
+     * 应用描述。
      */
     export const Description = getDescription()
 }
