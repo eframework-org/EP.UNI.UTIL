@@ -5,36 +5,58 @@
 import { XObject } from "./XObject"
 
 /**
- * 环境变量命名空间。
+ * 环境变量工具类。
+ * 提供运行时环境检测、平台识别、系统信息获取等功能。
  */
 export namespace XEnv {
     /**
      * 运行时类型。
+     * 用于标识当前代码运行的环境类型。
      */
     export enum RuntimeType {
+        /** Node.js 运行时 */
         Node,
+        /** VSCode 扩展运行时 */
         Code,
+        /** Cocos Creator 运行时 */
         Cocos,
+        /** Unity 运行时 */
         Unity,
+        /** Unreal Engine 运行时 */
         Unreal,
+        /** Electron 运行时 */
         Electron,
+        /** 浏览器 DOM 运行时 */
         Dom,
     }
 
     /**
      * 平台类型。
+     * 用于标识当前运行的操作系统平台。
      */
     export enum PlatformType {
+        /** 未知平台 */
         Unknown,
+        /** Windows 平台 */
         Windows,
+        /** Linux 平台 */
         Linux,
+        /** macOS 平台 */
         OSX,
+        /** Android 平台 */
         Android,
+        /** iOS 平台 */
         iOS,
+        /** 浏览器平台 */
         Browser,
     }
 
     var mRuntime: RuntimeType = null
+    /**
+     * 获取当前运行时类型。
+     * 通过检测全局对象特征判断运行时环境。
+     * 结果会被缓存以提高性能。
+     */
     function getRuntime(): RuntimeType {
         if (mRuntime == null) {
             if (typeof process !== 'undefined' && !!process.env.VSCODE_PID) {
@@ -59,6 +81,11 @@ export namespace XEnv {
     }
 
     var mPlatform: PlatformType = null
+    /**
+     * 获取当前平台类型。
+     * 基于运行时环境判断具体的操作系统平台。
+     * 结果会被缓存以提高性能。
+     */
     function getPlatform(): PlatformType {
         if (mPlatform == null) {
             if (getRuntime() == RuntimeType.Node) {
@@ -94,16 +121,34 @@ export namespace XEnv {
 
     /**
      * 当前平台类型。
+     * @example
+     * ```typescript
+     * if (XEnv.Platform === XEnv.PlatformType.Windows) {
+     *     // Windows 平台特定代码
+     * }
+     * ```
      */
     export const Platform = getPlatform()
 
     /**
      * 当前运行时类型。
+     * @example
+     * ```typescript
+     * if (XEnv.Runtime === XEnv.RuntimeType.Node) {
+     *     // Node.js 环境特定代码
+     * }
+     * ```
      */
     export const Runtime = getRuntime()
 
     /**
-     * 是否为 Node 或 Code 运行时。
+     * 是否为 Node 或 VSCode 运行时。
+     * @example
+     * ```typescript
+     * if (XEnv.IsNode) {
+     *     const fs = require('fs');
+     * }
+     * ```
      */
     export const IsNode = getRuntime() == RuntimeType.Node || getRuntime() == RuntimeType.Code
 
@@ -146,9 +191,15 @@ export namespace XEnv {
 
     /**
      * 规范化给定的路径。
+     * 统一路径分隔符，处理相对路径和特殊字符。
      * 
      * @param path 需要规范化的路径。
      * @returns 规范化后的路径。
+     * @example
+     * ```typescript
+     * const path = XEnv.normalizePath("C:\\dir\\..\\file.txt");
+     * // 返回 "C:/dir/file.txt"
+     * ```
      */
     function normalizePath(path: string): string {
         if (typeof path !== "string") throw new TypeError("path must be a string")
@@ -314,9 +365,16 @@ export namespace XEnv {
 
     var mDataPath: string
     /**
-     * 获取数据路径。
+     * 获取数据存储路径。
+     * 根据不同运行时环境返回适当的数据存储位置。
      * 
-     * @returns 数据路径。
+     * @returns 数据存储路径。
+     * @example
+     * ```typescript
+     * const dataPath = XEnv.DataPath;
+     * // Node.js: "project_root/local"
+     * // Unity: "Assets/Local"
+     * ```
      */
     function getDataPath(): string {
         if (mDataPath == null) {
@@ -404,8 +462,14 @@ export namespace XEnv {
 
     /**
      * 获取包信息。
+     * 读取并解析 package.json 文件。
      * 
-     * @returns 包信息。
+     * @returns 包信息对象。
+     * @example
+     * ```typescript
+     * const pkg = XEnv.getPackage();
+     * console.log(pkg.version);
+     * ```
      */
     function getPackage(): any {
         if (XEnv.IsNode) {

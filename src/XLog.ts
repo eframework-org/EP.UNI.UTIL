@@ -147,23 +147,31 @@ export namespace XLog {
     }
 
     /**
-     * 错误（3）：错误条件，指示应该解决的错误。
+     * 记录错误级别日志。
      * 
-     * @param data 日志内容。
-     * @param args 格式参数。
+     * @param format 日志格式字符串。
+     * @param args 格式化参数。
+     * @example
+     * ```typescript
+     * XLog.Error("Failed to load file: {0}", filename);
+     * ```
      */
-    export function Error(data: any, ...args: any[]) {
-        Print(data, LogLevel.Error, args)
+    export function Error(format: string, ...args: any[]) {
+        Print(format, LogLevel.Error, args)
     }
 
     /**
-     * 警告（4）：警告条件，指示潜在问题，如果不解决可能会导致错误。
+     * 记录警告级别日志。
      * 
-     * @param data 日志内容。
-     * @param args 格式参数。
+     * @param format 日志格式字符串。
+     * @param args 格式化参数。
+     * @example
+     * ```typescript
+     * XLog.Warn("Memory usage high: {0}%", memoryUsage);
+     * ```
      */
-    export function Warn(data: any, ...args: any[]) {
-        Print(data, LogLevel.Warn, args)
+    export function Warn(format: string, ...args: any[]) {
+        Print(format, LogLevel.Warn, args)
     }
 
     /**
@@ -177,23 +185,31 @@ export namespace XLog {
     }
 
     /**
-     * 信息（6）：信息消息，用于系统操作的一般信息。
+     * 记录信息级别日志。
      * 
-     * @param data 日志内容。
-     * @param args 格式参数。
+     * @param format 日志格式字符串。
+     * @param args 格式化参数。
+     * @example
+     * ```typescript
+     * XLog.Info("Application started, version: {0}", version);
+     * ```
      */
-    export function Info(data: any, ...args: any[]) {
-        Print(data, LogLevel.Info, args)
+    export function Info(format: string, ...args: any[]) {
+        Print(format, LogLevel.Info, args)
     }
 
     /**
-     * 调试（7）：调试级别的消息，用于调试和故障排除目的的消息。
+     * 记录调试级别日志。
      * 
-     * @param data 日志内容。
-     * @param args 格式参数。
+     * @param format 日志格式字符串。
+     * @param args 格式化参数。
+     * @example
+     * ```typescript
+     * XLog.Debug("Processing item {0} of {1}", current, total);
+     * ```
      */
-    export function Debug(data: any, ...args: any[]) {
-        Print(data, LogLevel.Debug, args)
+    export function Debug(format: string, ...args: any[]) {
+        Print(format, LogLevel.Debug, args)
     }
 
     const mIsUnityEditor: boolean = XEnv.IsUnity ? CS.UnityEngine.Application.isEditor : false

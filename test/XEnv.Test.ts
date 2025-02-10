@@ -16,10 +16,10 @@ export const XEnvTest = XTest.Test("XEnv", async () => {
         else XTest.Expect(XEnv.Platform, "Platform").ToBe(XEnv.PlatformType.Unknown)
 
         let pkg = require(path.join(__dirname, "../package.json"))
-        XTest.Expect(XEnv.Product, "Product").ToEqual(pkg.displayName)
-        XTest.Expect(XEnv.Author, "Author").ToEqual(pkg.author)
-        XTest.Expect(XEnv.Identifier, "Identifier").ToEqual(pkg.name)
-        XTest.Expect(XEnv.Version, "Version").ToEqual(pkg.version)
+        XTest.Expect(XEnv.Product, "Product").ToBe(pkg.displayName)
+        XTest.Expect(XEnv.Author, "Author").ToBe(pkg.author)
+        XTest.Expect(XEnv.Identifier, "Identifier").ToBe(pkg.name)
+        XTest.Expect(XEnv.Version, "Version").ToBe(pkg.version)
     } else if (XEnv.IsCocos) {
         XTest.Expect(typeof cc != "undefined", "IsCocos").ToBe(true)
     } else if (XEnv.IsUnity) {

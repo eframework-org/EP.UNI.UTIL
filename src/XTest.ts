@@ -9,6 +9,8 @@ import { XTime } from "./XTime"
 
 /**
  * 测试工具类。
+ * 提供单元测试框架，支持 Jest 和独立运行两种模式。
+ * 包含断言、测试用例管理、测试结果报告等功能。
  */
 export namespace XTest {
     var mIsJest: boolean
@@ -25,10 +27,17 @@ export namespace XTest {
     var mCurrent: string = "Unknown"
 
     /**
-     * 定义一个测试。
+     * 定义一个测试用例。
      * 
-     * @param name 测试名称。
-     * @param fn 测试函数。
+     * @param name 测试用例名称。
+     * @param fn 测试用例函数。
+     * @example
+     * ```typescript
+     * XTest.Test("should add numbers", async () => {
+     *     const result = 1 + 2;
+     *     XTest.Expect(result).ToBe(3);
+     * });
+     * ```
      */
     export function Test(name: string, fn: () => Promise<void>) {
         if (IsJest) {
@@ -51,12 +60,17 @@ export namespace XTest {
     }
 
     /**
-     * 测试期望。
+     * 创建一个测试断言。
      * 
-     * @param obj 测试对象。
-     * @param tag 可选标签。
-     * @param args 可选参数。
-     * @returns 断言实例。
+     * @param obj 要测试的对象。
+     * @param tag 断言标签，用于标识断言的来源。
+     * @param args 附加参数，用于提供更多上下文信息。
+     * @returns 断言对象。
+     * @example
+     * ```typescript
+     * XTest.Expect(value, "计算结果").ToBe(expected);
+     * XTest.Expect(array.length, "数组长度").ToBeGreaterThan(0);
+     * ```
      */
     export function Expect(obj: any, tag?: string, ...args: any[]): Assert {
         return new Assert(obj, tag, ...args)
@@ -64,6 +78,7 @@ export namespace XTest {
 
     /**
      * 测试断言类。
+     * 提供丰富的断言方法，支持值比较、类型检查等。
      */
     export class Assert {
         public Obj: any
@@ -88,8 +103,14 @@ export namespace XTest {
 
         /**
          * 否定断言。
+         * 反转下一个断言的结果。
          * 
-         * @returns 断言实例。
+         * @returns 当前断言实例。
+         * @example
+         * ```typescript
+         * XTest.Expect(value).Not.ToBeNull();
+         * XTest.Expect(array).Not.ToBe(empty);
+         * ```
          */
         public get Not(): Assert {
             this.IsNot = !this.IsNot
@@ -98,19 +119,15 @@ export namespace XTest {
 
         /**
          * 检查对象是否等于预期值。
+         * 使用严格相等(===)进行比较。
          * 
          * @param expected 预期值。
          * @returns 断言是否通过。
-         */
-        public ToEqual(expected: any): boolean {
-            return this.ToBe(expected)
-        }
-
-        /**
-         * 检查对象是否等于预期值。
-         * 
-         * @param expected 预期值。
-         * @returns 断言是否通过。
+         * @example
+         * ```typescript
+         * XTest.Expect(2 + 2).ToBe(4);
+         * XTest.Expect("hello").Not.ToBe("world");
+         * ```
          */
         public ToBe(expected: any): boolean {
             let ret = false
@@ -130,6 +147,11 @@ export namespace XTest {
          * 
          * @param expected 预期值。
          * @returns 断言是否通过。
+         * @example
+         * ```typescript
+         * XTest.Expect(5).ToBeGreaterThan(3);
+         * XTest.Expect(score).ToBeGreaterThan(passingScore);
+         * ```
          */
         public ToBeGreaterThan(expected: number): boolean {
             let ret = false
@@ -205,6 +227,11 @@ export namespace XTest {
          * 检查对象是否为 null。
          * 
          * @returns 断言是否通过。
+         * @example
+         * ```typescript
+         * XTest.Expect(null).ToBeNull();
+         * XTest.Expect(value).Not.ToBeNull();
+         * ```
          */
         public ToBeNull(): boolean {
             let ret = false

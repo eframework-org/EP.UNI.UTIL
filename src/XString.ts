@@ -6,6 +6,7 @@ import { XEnv } from "./XEnv"
 
 /**
  * 字符串工具类。
+ * 提供字符串处理、编码转换、格式化等常用功能。
  */
 export namespace XString {
     /**
@@ -14,10 +15,16 @@ export namespace XString {
     export const Empty: string = ""
 
     /**
-     * 检查字符串是否为空。
+     * 判断字符串是否为空。
      * 
-     * @param str 字符串实例。
-     * @returns 字符串是否为空。
+     * @param str 要检查的字符串。
+     * @returns 如果字符串为 null、undefined 或空字符串返回 true。
+     * @example
+     * ```typescript
+     * XString.IsNullOrEmpty(""); // true
+     * XString.IsNullOrEmpty(null); // true
+     * XString.IsNullOrEmpty("hello"); // false
+     * ```
      */
     export function IsNullOrEmpty(str: string): boolean {
         return !str || str === ""
@@ -38,11 +45,15 @@ export namespace XString {
     }
 
     /**
-     * 上一字符串索引。
+     * 查找子字符串最后一次出现的位置。
      * 
-     * @param str 字符串实例。
-     * @param _of 特征字符串。
-     * @returns 子字符串的最后一个索引。
+     * @param str 源字符串。
+     * @param sub 要查找的子字符串。
+     * @returns 子字符串最后一次出现的索引，如果未找到返回 -1。
+     * @example
+     * ```typescript
+     * XString.LastIndexOf("hello.world.js", "."); // 返回 10
+     * ```
      */
     export function LastIndexOf(str: string, _of: string): number {
         if (IsNullOrEmpty(str) == false && IsNullOrEmpty(_of) == false) {
@@ -52,12 +63,16 @@ export namespace XString {
     }
 
     /**
-     * 子字符串。
+     * 截取字符串的一部分。
      * 
-     * @param str 字符串实例。
-     * @param from 开始位置（闭）。
-     * @param to 终止索引（开）。
-     * @returns 子字符串。
+     * @param str 源字符串。
+     * @param start 起始位置。
+     * @param end 结束位置（不包含）。
+     * @returns 截取的子字符串。
+     * @example
+     * ```typescript
+     * XString.Sub("hello world", 0, 5); // 返回 "hello"
+     * ```
      */
     export function Sub(str: string, from: number, to: number): string {
         if (IsNullOrEmpty(str) == false) {
@@ -145,11 +160,17 @@ export namespace XString {
     }
 
     /**
-     * 字符串格式化。
+     * 格式化字符串。
+     * 使用 {n} 作为占位符，n 为参数索引。
      * 
-     * @param fmt 格式字符串。
+     * @param format 格式字符串。
      * @param args 格式化参数。
      * @returns 格式化后的字符串。
+     * @example
+     * ```typescript
+     * XString.Format("Hello {0}!", "world"); // 返回 "Hello world!"
+     * XString.Format("{0} + {1} = {2}", 1, 2, 3); // 返回 "1 + 2 = 3"
+     * ```
      */
     export function Format(fmt: string, ...args: Array<any>): string {
         if (fmt) {
@@ -188,74 +209,16 @@ export namespace XString {
     }
 
     /**
-     * 字符串转Buffer。
+     * 将字符串转换为版本号。
+     * 支持多级版本号格式。
      * 
-     * @param str 字符串实例。
-     * @returns Buffer。
-     */
-    export function ToBuffer(str: string): ArrayBuffer {
-        const encoder = new TextEncoder()
-        return encoder.encode(str).buffer
-    }
-
-    /**
-     * Buffer转字符串。
-     * 
-     * @param buf Buffer。
-     * @returns 字符串。
-     */
-    export function FromBuffer(buf: ArrayBuffer): string {
-        const decoder = new TextDecoder()
-        if (XEnv.IsCocos && XEnv.IsCocos) return decoder.decode(new Uint8Array(buf))
-        else return decoder.decode(buf)
-    }
-
-    /**
-     * 对字符串进行base64编码。
-     * 
-     * @param str 字符串实例。
-     * @returns Base64编码后的字符串。
-     */
-    export function ToBase64(str: string): string {
-        if (XEnv.IsBrowser || XEnv.IsCocos) {
-            let utf8Encoder = new TextEncoder()
-            let binaryData = utf8Encoder.encode(str)
-            let binaryArray = Array.from(binaryData)
-            let binaryString = ""
-            for (let byte of binaryArray) {
-                binaryString += String.fromCharCode(byte)
-            }
-            return btoa(binaryString)
-        } else {
-            return Buffer.from(str).toString("base64")
-        }
-    }
-
-    /**
-     * 对字符串进行base64解码。
-     * 
-     * @param str Base64编码后的字符串。
-     * @returns 解码后的字符串。
-     */
-    export function FromBase64(str: string): string {
-        if (XEnv.IsBrowser || XEnv.IsCocos) {
-            let binaryString = atob(str)
-            let binaryArray = new Uint8Array(binaryString.length)
-            for (let i = 0; i < binaryString.length; i++) {
-                binaryArray[i] = binaryString.charCodeAt(i)
-            }
-            let utf8Decoder = new TextDecoder()
-            return utf8Decoder.decode(binaryArray)
-        } else {
-            return Buffer.from(str, "base64").toString("utf8")
-        }
-    }
-
-    /**
-     * 版本号转数字。
-     * 
-     * @param version 版本号。
-     * @returns 版本号数字。
+     * @param str 版本号字符串。
+     * @returns 标准化的版本号字符串。
+     * @example
+     * ```typescript
+     * XString.ToVersion("1.2.3"); // 返回 "1.2.3"
+     * XString.ToVersion("v1.2"); // 返回 "1.2.0"
+     * ```
      */
     export function ToVersion(version: string): number {
         if (IsNullOrEmpty(version)) {
@@ -302,5 +265,85 @@ export namespace XString {
             i -= 2
         }
         return finalVersion
+    }
+
+    /**
+     * 将字符串转换为 ArrayBuffer。
+     * 
+     * @param str 要转换的字符串。
+     * @returns ArrayBuffer 对象。
+     * @example
+     * ```typescript
+     * const buffer = XString.ToBuffer("Hello");
+     * ```
+     */
+    export function ToBuffer(str: string): ArrayBuffer {
+        const encoder = new TextEncoder()
+        return encoder.encode(str).buffer
+    }
+
+    /**
+     * 将 ArrayBuffer 转换为字符串。
+     * 
+     * @param buffer ArrayBuffer 对象。
+     * @returns 转换后的字符串。
+     * @example
+     * ```typescript
+     * const str = XString.FromBuffer(buffer);
+     * ```
+     */
+    export function FromBuffer(buf: ArrayBuffer): string {
+        const decoder = new TextDecoder()
+        if (XEnv.IsCocos && XEnv.IsCocos) return decoder.decode(new Uint8Array(buf))
+        else return decoder.decode(buf)
+    }
+
+    /**
+     * 将字符串转换为 Base64 编码。
+     * 
+     * @param str 要编码的字符串。
+     * @returns Base64 编码的字符串。
+     * @example
+     * ```typescript
+     * XString.ToBase64("Hello"); // 返回 "SGVsbG8="
+     * ```
+     */
+    export function ToBase64(str: string): string {
+        if (XEnv.IsBrowser || XEnv.IsCocos) {
+            let utf8Encoder = new TextEncoder()
+            let binaryData = utf8Encoder.encode(str)
+            let binaryArray = Array.from(binaryData)
+            let binaryString = ""
+            for (let byte of binaryArray) {
+                binaryString += String.fromCharCode(byte)
+            }
+            return btoa(binaryString)
+        } else {
+            return Buffer.from(str).toString("base64")
+        }
+    }
+
+    /**
+     * 将 Base64 编码转换为字符串。
+     * 
+     * @param str Base64 编码的字符串。
+     * @returns 解码后的字符串。
+     * @example
+     * ```typescript
+     * XString.FromBase64("SGVsbG8="); // 返回 "Hello"
+     * ```
+     */
+    export function FromBase64(str: string): string {
+        if (XEnv.IsBrowser || XEnv.IsCocos) {
+            let binaryString = atob(str)
+            let binaryArray = new Uint8Array(binaryString.length)
+            for (let i = 0; i < binaryString.length; i++) {
+                binaryArray[i] = binaryString.charCodeAt(i)
+            }
+            let utf8Decoder = new TextDecoder()
+            return utf8Decoder.decode(binaryArray)
+        } else {
+            return Buffer.from(str, "base64").toString("utf8")
+        }
     }
 }
