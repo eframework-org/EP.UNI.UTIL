@@ -51,7 +51,7 @@ npm install ep.uni.util
 
 ## 常见问题
 
-如有问题，请参考 [问题反馈](CONTRIBUTING.md#问题反馈)。
+如有问题，请提交 [问题反馈](CONTRIBUTING.md#问题反馈)。
 
 ### 1. XFile.Unzip 功能无法使用？
 请确保已安装所需的[解压工具](#1-前置条件)
