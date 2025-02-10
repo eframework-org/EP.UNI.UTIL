@@ -1,6 +1,8 @@
 # EP.UNI.UTIL
+
 [![Version](https://img.shields.io/npm/v/ep.uni.util)](https://www.npmjs.com/package/ep.uni.util)
 [![Downloads](https://img.shields.io/npm/dm/ep.uni.util)](https://www.npmjs.com/package/ep.uni.util)  
+
 UNI.UTIL 是一个轻量级、跨平台的 TypeScript 工具库，专注于提供统一的 API 接口，支持在 Node.js、浏览器、Unity 和 Cocos 等多种环境下运行。
 
 ## 功能特性
@@ -34,8 +36,7 @@ UNI.UTIL 是一个轻量级、跨平台的 TypeScript 工具库，专注于提�
 | Unreal | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
 | Electron | ❌ | ❌ | ❌ | ➖ | ➖ | ➖ |
 | Dom | ➖ | ➖ | ➖ | ➖ | ➖ | ❓ |
-- ✅: 已支持    ➖: 不适用
-- ❓: 开发中    ❌: 计划中
+- ✅: 已支持  ➖: 不适用  ❓: 开发中  ❌: 计划中
 
 ## 操作手册
 
