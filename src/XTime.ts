@@ -3,8 +3,7 @@
 // license that can be found in the LICENSE file.
 
 /**
- * 时间工具类。
- * 提供时间格式化、时间戳转换等常用功能。
+ * 时间工具：时间格式化、时间戳转换等。
  */
 export namespace XTime {
     /**

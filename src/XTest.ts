@@ -8,9 +8,7 @@ import { XObject } from "./XObject"
 import { XTime } from "./XTime"
 
 /**
- * 测试工具类。
- * 提供单元测试框架，支持 Jest 和独立运行两种模式。
- * 包含断言、测试用例管理、测试结果报告等功能。
+ * 测试框架：支持 Jest 和独立运行两种模式。
  */
 export namespace XTest {
     var isJest: boolean

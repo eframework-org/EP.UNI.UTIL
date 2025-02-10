@@ -3,8 +3,7 @@
 // license that can be found in the LICENSE file.
 
 /**
- * 工具函数集。
- * 提供通用工具函数，包括 UUID 生成、进程执行、随机数生成等功能。
+ * 通用工具：UUID生成、进程执行、随机数等。
  */
 export namespace XUtility {
     /**

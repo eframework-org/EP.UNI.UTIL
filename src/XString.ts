@@ -5,8 +5,7 @@
 import { XEnv } from "./XEnv"
 
 /**
- * 字符串工具类。
- * 提供字符串处理、编码转换、格式化等常用功能。
+ * 字符串工具：字符串处理、编码转换、格式化等。
  */
 export namespace XString {
     /**

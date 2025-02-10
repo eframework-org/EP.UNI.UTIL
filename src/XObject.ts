@@ -3,8 +3,7 @@
 // license that can be found in the LICENSE file.
 
 /**
- * 对象工具类。
- * 提供对象操作、类型判断、函数绑定等功能。
+ * 对象工具：提供对象操作、类型判断、函数绑定等。
  */
 export namespace XObject {
     /**

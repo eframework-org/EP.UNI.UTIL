@@ -5,8 +5,7 @@
 import { XObject } from "./XObject"
 
 /**
- * 环境变量工具类。
- * 提供运行时环境检测、平台识别、系统信息获取等功能。
+ * 环境工具：提供识别运行时环境、平台特性等功能。
  */
 export namespace XEnv {
     /**

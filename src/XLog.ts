@@ -7,7 +7,7 @@ import { XString } from "./XString"
 import { XTime } from "./XTime"
 
 /**
- * 日志工具类。
+ * 日志工具：支持多级别、多目标输出。
  */
 export namespace XLog {
     /**

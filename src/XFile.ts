@@ -7,8 +7,7 @@ import { XString } from "./XString"
 import { XUtility } from "./XUtility"
 
 /**
- * 文件工具类。
- * 提供跨平台的文件系统操作，支持 Node.js、Unity、Cocos 等多种运行时。
+ * 文件工具：跨平台文件系统操作。
  */
 export namespace XFile {
     /**

@@ -3,8 +3,7 @@
 // license that can be found in the LICENSE file.
 
 /**
- * 集合工具类。
- * 提供对数组/列表的常用操作封装，包括增删改查、排序、范围操作等功能。
+ * 集合工具：提供数组/列表的增删改查、排序等功能。
  */
 export namespace XCollect {
     /**
