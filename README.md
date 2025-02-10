@@ -49,21 +49,6 @@ UNI.UTIL 是一个轻量级、跨平台的 TypeScript 工具库，专注于提�
 npm install ep.uni.util
 ```
 
-### 3. 快速开始
-```typescript
-import { XString, XTime, XLog } from 'ep.uni.util';
-
-// 字符串处理
-const str = XString.Format("Hello {0}!", "World"); // "Hello World!"
-
-// 时间格式化
-const now = new Date();
-const formatted = XTime.Format(now, "yyyy-MM-dd hh:mm:ss");
-
-// 日志输出
-XLog.Info("应用启动于: {0}", formatted);
-```
-
 ## 常见问题
 
 如有问题，请参考 [问题反馈](CONTRIBUTING.md#问题反馈)。
