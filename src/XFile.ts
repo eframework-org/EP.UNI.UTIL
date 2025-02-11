@@ -376,13 +376,10 @@ export namespace XFile {
     }
 
     /**
-     * Opens a text file.
-     *
      * 打开文本文件。
-     *
-     * @param file file path. 文件路径。
-     *
-     * @returns file content as string. 文件内容作为字符串。
+     * 
+     * @param file 文件路径。
+     * @returns 文件内容作为字符串。
      */
     export function OpenText(file: string): string {
         if (HasFile(file)) {
@@ -399,12 +396,10 @@ export namespace XFile {
     }
 
     /**
-     * Saves a text file.
-     *
      * 保存文本文件。
-     *
-     * @param file file path. 文件路径。
-     * @param text text data. 文本数据。
+     * 
+     * @param file 文件路径。
+     * @param text 文本数据。
      */
     export function SaveText(file: string, text: string) {
         if (!XString.IsNullOrEmpty(text)) {
@@ -422,13 +417,10 @@ export namespace XFile {
     }
 
     /**
-     * Opens a Base64 encoded text file.
-     *
      * 打开 Base64 编码的文本文件。
-     *
-     * @param file file path. 文件路径。
-     *
-     * @returns decoded text content. 解码后的文本内容。
+     * 
+     * @param file 文件路径。
+     * @returns 解码后的文本内容。
      */
     export function OpenBase64(file: string): string {
         let data = OpenText(file)
@@ -436,12 +428,10 @@ export namespace XFile {
     }
 
     /**
-     * Saves a Base64 encoded text file.
-     *
      * 保存 Base64 编码的文本文件。
-     *
-     * @param file file path. 文件路径。
-     * @param data file data. 文件数据。
+     * 
+     * @param file 文件路径。
+     * @param data 文件数据。
      */
     export function SaveBase64(file: string, data: string) {
         data = XString.ToBase64(data)
@@ -449,12 +439,10 @@ export namespace XFile {
     }
 
     /**
-     * Copies a file.
-     *
      * 拷贝文件。
-     *
-     * @param from source path. 源路径。
-     * @param to target path. 目标路径。
+     * 
+     * @param from 源路径。
+     * @param to 目标路径。
      */
     export function CopyFile(from: string, to: string) {
         if (from && to) {
@@ -468,12 +456,10 @@ export namespace XFile {
     }
 
     /**
-     * Copies a directory.
-     *
      * 拷贝文件夹。
-     *
-     * @param from source path. 源路径。
-     * @param to target path. 目标路径。
+     * 
+     * @param from 源路径。
+     * @param to 目标路径。
      */
     export function CopyDirectory(from: string, to: string) {
         if (from && to) {
@@ -505,13 +491,10 @@ export namespace XFile {
     }
 
     /**
-     * Deletes a directory.
-     *
      * 删除文件夹。
-     *
-     * @param dir directory path. 文件夹路径。
-     *
-     * @returns whether the directory was deleted. 文件夹是否被删除。
+     * 
+     * @param dir 文件夹路径。
+     * @returns 文件夹是否被删除。
      */
     export function DeleteDirectory(dir: string): boolean {
         if (dir) {
@@ -554,13 +537,10 @@ export namespace XFile {
     }
 
     /**
-     * Normalizes a path.
-     *
      * 归一化路径。
-     *
-     * @param path file (or directory) path. 文件（夹）路径。
-     *
-     * @returns normalized path. 归一化后的路径。
+     * 
+     * @param path 文件（夹）路径。
+     * @returns 归一化后的路径。
      */
     export function NormalizePath(path: string): string {
         if (typeof path !== "string") throw new TypeError("path must be a string")
@@ -589,13 +569,10 @@ export namespace XFile {
     }
 
     /**
-     * Joins paths.
-     *
      * 路径合并。
-     *
-     * @param paths paths to join. 要合并的路径。
-     *
-     * @returns joined path. 合并后的路径。
+     * 
+     * @param paths 要合并的路径。
+     * @returns 合并后的路径。
      */
     export function PathJoin(...paths: string[]): string {
         paths = paths.filter(path => typeof path === "string" && path.trim() !== "")
@@ -611,13 +588,10 @@ export namespace XFile {
     }
 
     /**
-     * Gets the directory name of a path.
-     *
      * 获取文件（夹）的父路径。
-     *
-     * @param path file (or directory) path. 文件（夹）路径。
-     *
-     * @returns directory name. 父路径。
+     * 
+     * @param path 文件（夹）路径。
+     * @returns 父路径。
      */
     export function DirectoryName(path: string): string {
         if (path) {
@@ -631,14 +605,11 @@ export namespace XFile {
     }
 
     /**
-     * Gets the file name from a path.
-     *
      * 获取文件名称。
-     *
-     * @param path file (or directory) path. 文件（夹）路径。
-     * @param includeExtension whether to include the extension. 是否包含扩展名。
-     *
-     * @returns file name. 文件名称。
+     * 
+     * @param path 文件（夹）路径。
+     * @param includeExtension 是否包含扩展名。
+     * @returns 文件名称。
      */
     export function FileName(path: string, includeExtension: boolean = true): string {
         if (path) {
@@ -655,13 +626,10 @@ export namespace XFile {
     }
 
     /**
-     * Gets the file extension from a path.
-     *
      * 获取文件扩展名。
-     *
-     * @param path path. 路径。
-     *
-     * @returns file extension. 文件扩展名。
+     * 
+     * @param path 路径。
+     * @returns 文件扩展名。
      */
     export function FileExtension(path: string): string {
         if (path) {
