@@ -88,7 +88,7 @@ export namespace XLog {
         htmlBrush("blue"), // Debug
     ]
 
-    const tags: Array<string> = [
+    const logLabels: Array<string> = [
         "[M]",
         "[A]",
         "[C]",
@@ -242,12 +242,12 @@ export namespace XLog {
                     // VSCode Debug Console 和 Cocos Preview Editor不支持 ANSI 转义
                     // 浏览器支持 ANSI 转义
                     // 但是为了统一化，对level不作着色处理
-                    const lstr = `[${tm}] ${tags[level]} ${fstr}`
+                    const lstr = `[${tm}] ${logLabels[level]} ${fstr}`
                     if (level <= LevelType.Error) console.error(lstr)
                     else console.info(lstr)
                 } else if (XEnv.IsCode) {
                     // VSCode Output Channel 不支持 ANSI 转义
-                    const lstr = `[${tm}] ${tags[level]} ${fstr}`
+                    const lstr = `[${tm}] ${logLabels[level]} ${fstr}`
                     if (vscodeChannel == null) {
                         const vscode = require("vscode")
                         vscodeChannel = vscode.window.createOutputChannel(XEnv.Product, { log: true })
@@ -255,11 +255,11 @@ export namespace XLog {
                     if (level <= LevelType.Error) vscodeChannel.error(lstr)
                     else vscodeChannel.info(lstr)
                 } else if (XEnv.IsNode) {
-                    const lstr = `[${tm}] ${ansiBrushes[level](tags[level])} ${fstr}`
+                    const lstr = `[${tm}] ${ansiBrushes[level](logLabels[level])} ${fstr}`
                     if (level <= LevelType.Error) console.error(lstr)
                     else console.info(lstr)
                 } else if (XEnv.IsUnity) {
-                    let lstr = `[${tm}] ${unityBrushes[level](tags[level])} ${fstr}`
+                    let lstr = `[${tm}] ${unityBrushes[level](logLabels[level])} ${fstr}`
                     if (isUnityEditor) {
                         const trace: string[] = new globalThis.Error().stack?.replace(/\r\n/g, "\n").split("\n").slice(2)
                         if (trace && trace.length > 0) {
