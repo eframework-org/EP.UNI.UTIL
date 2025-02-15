@@ -15,7 +15,7 @@ export namespace XLog {
      * 基于 RFC5424 标准，包含结构化数据格式。
      * 指定了八个严重程度等级，用于表示记录事件的严重性或紧急程度。
      */
-    export enum LogLevel {
+    export enum LevelType {
         /** 紧急（0）：系统不可用，通常用于灾难性故障。 */
         Emergency = 0,
 
@@ -100,8 +100,6 @@ export namespace XLog {
     ]
 
     /**
-     * Log channel (VSCode).
-     *
      * 日志管道（VSCode）。
      */
     var vscodeChannel: any = null
@@ -123,7 +121,7 @@ export namespace XLog {
      * @param args 格式参数。
      */
     export function Emergency(data: any, ...args: any[]) {
-        Print(data, LogLevel.Emergency, args)
+        Print(data, LevelType.Emergency, args)
     }
 
     /**
@@ -133,7 +131,7 @@ export namespace XLog {
      * @param args 格式参数。
      */
     export function Alert(data: any, ...args: any[]) {
-        Print(data, LogLevel.Alert, args)
+        Print(data, LevelType.Alert, args)
     }
 
     /**
@@ -143,7 +141,7 @@ export namespace XLog {
      * @param args 格式参数。
      */
     export function Critical(data: any, ...args: any[]) {
-        Print(data, LogLevel.Critical, args)
+        Print(data, LevelType.Critical, args)
     }
 
     /**
@@ -157,7 +155,7 @@ export namespace XLog {
      * ```
      */
     export function Error(data: any, ...args: any[]) {
-        Print(data, LogLevel.Error, args)
+        Print(data, LevelType.Error, args)
     }
 
     /**
@@ -171,7 +169,7 @@ export namespace XLog {
      * ```
      */
     export function Warn(data: any, ...args: any[]) {
-        Print(data, LogLevel.Warn, args)
+        Print(data, LevelType.Warn, args)
     }
 
     /**
@@ -181,7 +179,7 @@ export namespace XLog {
      * @param args 格式参数。
      */
     export function Notice(data: any, ...args: any[]) {
-        Print(data, LogLevel.Notice, args)
+        Print(data, LevelType.Notice, args)
     }
 
     /**
@@ -195,7 +193,7 @@ export namespace XLog {
      * ```
      */
     export function Info(data: any, ...args: any[]) {
-        Print(data, LogLevel.Info, args)
+        Print(data, LevelType.Info, args)
     }
 
     /**
@@ -209,7 +207,7 @@ export namespace XLog {
      * ```
      */
     export function Debug(data: any, ...args: any[]) {
-        Print(data, LogLevel.Debug, args)
+        Print(data, LevelType.Debug, args)
     }
 
     const isUnityEditor: boolean = XEnv.IsUnity ? CS.UnityEngine.Application.isEditor : false
@@ -235,7 +233,7 @@ export namespace XLog {
      * @param level 日志等级。
      * @param args 格式化参数。
      */
-    export function Print(fmt: any, level: LogLevel, ...args: Array<any>) {
+    export function Print(fmt: any, level: LevelType, ...args: Array<any>) {
         try {
             if (!(fmt instanceof Boolean) && fmt) {
                 const tm = XTime.Format(new Date(), "MM/dd hh:mm:ss.SSS")
@@ -245,7 +243,7 @@ export namespace XLog {
                     // 浏览器支持 ANSI 转义
                     // 但是为了统一化，对level不作着色处理
                     const lstr = `[${tm}] ${tags[level]} ${fstr}`
-                    if (level <= LogLevel.Error) console.error(lstr)
+                    if (level <= LevelType.Error) console.error(lstr)
                     else console.info(lstr)
                 } else if (XEnv.IsCode) {
                     // VSCode Output Channel 不支持 ANSI 转义
@@ -254,11 +252,11 @@ export namespace XLog {
                         const vscode = require("vscode")
                         vscodeChannel = vscode.window.createOutputChannel(XEnv.Product, { log: true })
                     }
-                    if (level <= LogLevel.Error) vscodeChannel.error(lstr)
+                    if (level <= LevelType.Error) vscodeChannel.error(lstr)
                     else vscodeChannel.info(lstr)
                 } else if (XEnv.IsNode) {
                     const lstr = `[${tm}] ${ansiBrushes[level](tags[level])} ${fstr}`
-                    if (level <= LogLevel.Error) console.error(lstr)
+                    if (level <= LevelType.Error) console.error(lstr)
                     else console.info(lstr)
                 } else if (XEnv.IsUnity) {
                     let lstr = `[${tm}] ${unityBrushes[level](tags[level])} ${fstr}`
@@ -269,7 +267,7 @@ export namespace XLog {
                             lstr += "\n" + trace.join("\n")
                         }
                     }
-                    if (level <= LogLevel.Error) CS.UnityEngine.Debug.LogError(lstr)
+                    if (level <= LevelType.Error) CS.UnityEngine.Debug.LogError(lstr)
                     else CS.UnityEngine.Debug.Log(lstr)
                 } else if (XEnv.IsUnreal) {
                     // todo
