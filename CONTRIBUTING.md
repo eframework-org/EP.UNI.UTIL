@@ -184,7 +184,7 @@ Closes #123
 - 修复问题时需要添加相关的测试用例
 - 重构代码时确保现有测试用例通过
 
-### 2. 测试用例编写
+### 2. 用例编写
 - 测试文件命名：`*.Test.ts`
 - 使用 [EP.UNI.UTIL/XTest](https://github.com/eframework-org/EP.UNI.UTIL) 测试框架
 - 测试用例需要包含正常和异常场景
