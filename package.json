@@ -1,7 +1,7 @@
 {
   "name": "ep.uni.util",
   "displayName": "EP.UNI.UTIL",
-  "description": "UNI.UTIL 类库是一个轻量级、跨平台的 TypeScript 工具集。它提供统一的 API 接口，确保在 Node.js、浏览器、Unity 和 Cocos 等多种环境下保持一致的运行结果。",
+  "description": "EP.UNI.UTIL 类库是一个轻量级、跨平台的 TypeScript 工具集。它提供统一的 API 接口，确保在 Node.js、浏览器、Unity 和 Cocos 等多种环境下保持一致的运行结果。",
   "version": "0.0.4",
   "author": "eframework-org",
   "homepage": "https://github.com/eframework-org",

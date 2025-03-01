@@ -3,7 +3,7 @@
 [![Version](https://img.shields.io/npm/v/ep.uni.util)](https://www.npmjs.com/package/ep.uni.util)
 [![Downloads](https://img.shields.io/npm/dm/ep.uni.util)](https://www.npmjs.com/package/ep.uni.util)  
 
-UNI.UTIL 类库是一个轻量级、跨平台的 TypeScript 工具集。它提供统一的 API 接口，确保在 Node.js、浏览器、Unity 和 Cocos 等多种环境下保持一致的运行结果。
+EP.UNI.UTIL 类库是一个轻量级、跨平台的 TypeScript 工具集。它提供统一的 API 接口，确保在 Node.js、浏览器、Unity 和 Cocos 等多种环境下保持一致的运行结果。
 
 ## 功能特性
 
